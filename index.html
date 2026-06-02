@@ -1,0 +1,2531 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>F-16 LAB — Зуботехнічна лабораторія</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   F-16 LAB — Metrology-Tech premium landing
+   Design system / styles
+   ============================================================ */
+
+:root {
+  /* Color */
+  --accent: #5B8DEF;
+  --accent-press: #4A7BDB;
+  --accent-soft: rgba(91, 141, 239, 0.12);
+  --bg: #F7F9FC;
+  --bg-2: #FAFBFD;
+  --ink: #1F2937;
+  --ink-soft: #5C6677;
+  --ink-faint: #8A94A6;
+  --silver: #D9DEE8;
+  --silver-soft: #E7EBF2;
+  --graphite: #0C1320;
+  --graphite-2: #0F1827;
+  --danger: #E2575B;
+
+  /* Type */
+  --f-display: "Sora", system-ui, sans-serif;
+  --f-body: "Hanken Grotesk", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Layout */
+  --container: 1600px;
+  --gutter: 48px;
+  --radius: 18px;
+
+  /* Depth */
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 8px 24px -8px rgba(16, 24, 40, 0.12), 0 2px 6px rgba(16, 24, 40, 0.05);
+  --shadow-lg: 0 30px 60px -20px rgba(12, 19, 32, 0.35);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--f-body);
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Technical mono label / kicker */
+.kicker {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+.kicker::before {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+.kicker.on-dark { color: #BBD0F7; }
+
+h1, h2, h3 { font-family: var(--f-display); font-weight: 600; letter-spacing: -0.02em; margin: 0; }
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 60;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  background: rgba(247, 249, 252, 0.55);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid transparent;
+}
+.site-header.scrolled {
+  background: rgba(250, 251, 253, 0.82);
+  border-bottom: 1px solid var(--silver-soft);
+  box-shadow: 0 6px 24px -16px rgba(16, 24, 40, 0.2);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 84px;
+  gap: 32px;
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand-mark {
+  width: 34px; height: 34px; flex: none;
+  display: grid; place-items: center;
+  color: var(--accent);
+}
+.brand-name {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.brand-name .lab {
+  font-family: var(--f-mono);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  color: var(--ink-soft);
+  transform: translateY(-1px);
+}
+
+.main-nav { display: flex; gap: 34px; }
+.main-nav a {
+  font-size: 15.5px;
+  color: var(--ink-soft);
+  font-weight: 500;
+  position: relative;
+  padding: 6px 0;
+  transition: color 0.2s ease;
+}
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 0; height: 1.5px;
+  background: var(--accent);
+  transition: width 0.25s ease;
+}
+.main-nav a:hover { color: var(--ink); }
+.main-nav a:hover::after { width: 100%; }
+
+.header-right { display: flex; align-items: center; gap: 22px; }
+.header-phone {
+  font-family: var(--f-mono);
+  font-size: 14px;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--f-body);
+  font-weight: 600;
+  font-size: 15.5px;
+  border-radius: 12px;
+  padding: 13px 22px;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 8px 20px -8px rgba(91, 141, 239, 0.7);
+}
+.btn-primary:hover { background: var(--accent-press); transform: translateY(-1px); box-shadow: 0 12px 26px -8px rgba(91, 141, 239, 0.75); }
+.btn-primary:active { transform: translateY(0); }
+.btn-lg { padding: 17px 30px; font-size: 17px; border-radius: 14px; }
+.btn-ghost {
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.16);
+  backdrop-filter: blur(6px);
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.12); }
+.tg-glyph { width: 18px; height: 18px; }
+
+.burger { display: none; width: 44px; height: 44px; border-radius: 11px; align-items: center; justify-content: center; }
+.burger span { display: block; width: 20px; height: 2px; background: var(--ink); position: relative; transition: 0.25s; }
+.burger span::before, .burger span::after { content: ""; position: absolute; left: 0; width: 20px; height: 2px; background: var(--ink); transition: 0.25s; }
+.burger span::before { top: -6px; }
+.burger span::after { top: 6px; }
+body.menu-open .burger span { background: transparent; }
+body.menu-open .burger span::before { top: 0; transform: rotate(45deg); }
+body.menu-open .burger span::after { top: 0; transform: rotate(-45deg); }
+
+/* Mobile drawer */
+.mobile-drawer {
+  position: fixed;
+  inset: 84px 0 0 0;
+  z-index: 55;
+  background: rgba(250, 251, 253, 0.98);
+  backdrop-filter: blur(20px);
+  padding: 32px var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transform: translateY(-12px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.mobile-drawer a { font-family: var(--f-display); font-size: 24px; font-weight: 600; padding: 14px 0; border-bottom: 1px solid var(--silver-soft); color: var(--ink); }
+.mobile-drawer .btn { margin-top: 24px; justify-content: center; }
+.mobile-drawer .header-phone { margin-top: 16px; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  background: var(--graphite);
+  color: #fff;
+  overflow: hidden;
+  padding: 168px 0 96px;
+}
+.hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(120% 100% at 70% 35%, #000 30%, transparent 78%);
+  -webkit-mask-image: radial-gradient(120% 100% at 70% 35%, #000 30%, transparent 78%);
+  pointer-events: none;
+}
+.hero-glow {
+  position: absolute;
+  width: 760px; height: 760px;
+  right: -120px; top: -180px;
+  background: radial-gradient(circle, rgba(91,141,239,0.30), transparent 62%);
+  filter: blur(20px);
+  pointer-events: none;
+}
+.hero-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: 72px;
+  align-items: center;
+}
+.hero-left { max-width: 620px; }
+
+.promo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 9px 9px 16px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(8px);
+  font-size: 14.5px;
+  font-weight: 500;
+}
+.hero-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 30px; }
+.spec-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 17px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(8px);
+  color: #E7EEFC;
+  font-size: 14.5px;
+  font-weight: 500;
+}
+.spec-badge { white-space: nowrap; }
+.spec-badge svg { width: 16px; height: 16px; color: #9DBBF7; flex: none; }
+.spec-badge b { color: #fff; font-weight: 600; }
+.promo-badge .gift { font-size: 16px; }
+.promo-badge .pill {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  background: var(--accent);
+  color: #fff;
+  padding: 4px 11px;
+  border-radius: 100px;
+  font-weight: 500;
+}
+.promo-badge b { color: #fff; font-weight: 600; }
+
+.hero h1 {
+  font-size: clamp(40px, 4.4vw, 62px);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  color: #fff;
+  text-wrap: balance;
+}
+.hero h1 .em { color: #9DBBF7; }
+.hero-sub {
+  font-size: clamp(18px, 1.4vw, 21px);
+  color: #C3CBDA;
+  margin-top: 26px;
+  max-width: 540px;
+  line-height: 1.5;
+}
+.hero-reinforcer {
+  margin-top: 30px;
+  font-size: 15.5px;
+  color: #8B95A8;
+  max-width: 520px;
+  line-height: 1.55;
+  border-left: 2px solid rgba(91,141,239,0.5);
+  padding-left: 18px;
+}
+.hero-cta-row {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+.hero-cta-note { font-size: 14.5px; color: #8B95A8; }
+.hero-cta-note a { color: #9DBBF7; border-bottom: 1px solid rgba(157,187,247,0.4); padding-bottom: 1px; }
+.hero-cta-note a:hover { color: #fff; }
+
+/* ---- CAD viewport (the non-standard centerpiece) ---- */
+.viewport {
+  position: relative;
+  aspect-ratio: 4 / 3.5;
+  border-radius: var(--radius);
+  background: #060A12;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: var(--shadow-lg), inset 0 0 0 1px rgba(255,255,255,0.02);
+  overflow: hidden;
+  isolation: isolate;
+}
+.viewport image-slot { position: absolute; inset: 0; width: 100%; height: 100%; --is-bg: #0A0F18; }
+.viewport-image-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6,10,18,0.05), rgba(6,10,18,0.35)); pointer-events: none; z-index: 2; }
+
+/* ruler ticks */
+.vp-ruler { position: absolute; z-index: 4; pointer-events: none; color: rgba(255,255,255,0.4); font-family: var(--f-mono); font-size: 9.5px; }
+.vp-ruler.top { top: 0; left: 0; right: 0; height: 26px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; }
+.vp-ruler.left { top: 0; bottom: 0; left: 0; width: 26px; border-right: 1px solid rgba(255,255,255,0.08); }
+.vp-tick { flex: 1; border-left: 1px solid rgba(255,255,255,0.12); position: relative; }
+.vp-tick span { position: absolute; left: 4px; top: 5px; letter-spacing: 0.04em; }
+
+/* HUD chips */
+.vp-hud {
+  position: absolute; z-index: 6;
+  top: 14px; right: 14px;
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.12em;
+  color: #fff;
+  background: rgba(8,12,20,0.6);
+  border: 1px solid rgba(255,255,255,0.14);
+  padding: 6px 11px; border-radius: 100px;
+  backdrop-filter: blur(6px);
+}
+.vp-hud .dot { width: 7px; height: 7px; border-radius: 50%; background: #4ED88A; box-shadow: 0 0 8px #4ED88A; animation: pulse 1.6s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+.vp-status {
+  position: absolute; z-index: 6;
+  left: 14px; bottom: 14px; right: 14px;
+  display: flex; align-items: center; gap: 0;
+  font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.55);
+}
+.vp-status .step { display: flex; align-items: center; gap: 8px; }
+.vp-status .step.active { color: #9DBBF7; }
+.vp-status .arr { margin: 0 12px; opacity: 0.4; }
+
+/* reticle */
+.vp-reticle { position: absolute; z-index: 5; left: 50%; top: 48%; width: 0; height: 0; pointer-events: none; }
+.vp-reticle::before, .vp-reticle::after {
+  content: ""; position: absolute; background: rgba(91,141,239,0.55);
+}
+.vp-reticle::before { left: -60px; top: 0; width: 120px; height: 1px; }
+.vp-reticle::after { top: -60px; left: 0; width: 1px; height: 120px; }
+.vp-reticle i {
+  position: absolute; left: -22px; top: -22px; width: 44px; height: 44px;
+  border: 1px solid rgba(91,141,239,0.7); border-radius: 50%;
+}
+.vp-reticle i::after {
+  content: ""; position: absolute; inset: -7px;
+  border: 1px solid rgba(91,141,239,0.18); border-radius: 50%;
+}
+
+/* scan line */
+.vp-scan {
+  position: absolute; z-index: 5; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(91,141,239,0.9), transparent);
+  box-shadow: 0 0 22px 3px rgba(91,141,239,0.55);
+  animation: scan 4.2s cubic-bezier(.5,0,.5,1) infinite;
+  pointer-events: none;
+}
+.vp-scan.off { display: none; }
+@keyframes scan { 0% { top: 6%; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { top: 94%; opacity: 0; } }
+
+/* dimension callouts */
+.vp-dim {
+  position: absolute; z-index: 6;
+  font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.02em;
+  color: #fff;
+  display: flex; align-items: center; gap: 8px;
+}
+.vp-dim .lead { width: 30px; height: 1px; background: rgba(91,141,239,0.8); position: relative; }
+.vp-dim .lead::before { content: ""; position: absolute; left: 0; top: -2px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+.vp-dim .val { background: rgba(8,12,20,0.7); border: 1px solid rgba(91,141,239,0.4); padding: 4px 9px; border-radius: 7px; backdrop-filter: blur(6px); white-space: nowrap; }
+.vp-dim .val em { color: #9DBBF7; font-style: normal; }
+.vp-dim.d1 { top: 32%; left: 38%; }
+.vp-dim.d2 { top: 62%; left: 52%; flex-direction: row-reverse; }
+.vp-dim.d2 .lead::before { left: auto; right: 0; }
+
+/* ============================================================
+   DARK BAND — unified background for NUMBERS + SERVICES
+   ============================================================ */
+.dark-band { position: relative; background: var(--graphite); overflow: hidden; }
+.dark-band::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(60% 40% at 12% 0%, rgba(91,141,239,0.13), transparent 60%),
+    radial-gradient(55% 36% at 92% 52%, rgba(91,141,239,0.08), transparent 62%),
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: auto, auto, 64px 64px, 64px 64px;
+  mask-image: linear-gradient(180deg, #000 0%, #000 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 92%, transparent 100%);
+}
+.dark-band > section { position: relative; z-index: 1; }
+
+.numbers {
+  color: #fff;
+  position: relative;
+  padding: 92px 0 56px;
+}
+.numbers-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 56px; position: relative; }
+.numbers-head h2 { font-size: clamp(28px, 2.6vw, 40px); color: #fff; }
+.numbers-head .tag { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.16em; color: #6E7C92; }
+.numbers-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+}
+.stat { padding: 8px 36px; border-left: 1px solid rgba(255,255,255,0.1); }
+.stat:first-child { padding-left: 0; border-left: none; }
+.stat .num {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(48px, 5vw, 76px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #fff;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+.stat .num .suffix { color: var(--accent); font-size: 0.5em; font-weight: 600; }
+.stat .num .pre { font-size: 0.42em; color: #8B95A8; font-family: var(--f-mono); font-weight: 500; letter-spacing: 0; align-self: center; margin-right: 2px; }
+.stat .label { margin-top: 16px; color: #9AA5B8; font-size: 15.5px; line-height: 1.4; max-width: 180px; }
+
+/* ============================================================
+   PAINS
+   ============================================================ */
+.pains { padding: 110px 0 120px; background: var(--bg); position: relative; }
+.pains-head { max-width: 720px; margin-bottom: 56px; }
+.pains-head h2 { font-size: clamp(32px, 3.2vw, 48px); margin-top: 18px; line-height: 1.06; }
+
+/* comparison: topic-pivoted table — Як у інших → Як у нас */
+.compare { position: relative; }
+.cmp-row {
+  display: grid;
+  grid-template-columns: 1fr 92px 1fr;
+  align-items: stretch;
+}
+.cmp-cell { padding: 19px 26px; display: flex; align-items: center; }
+.c-left { background: var(--bg-2); border: 1px solid var(--silver-soft); border-bottom: none; color: var(--ink-soft); }
+.c-right { background: linear-gradient(180deg,#fff,#FAFCFF); border: 1px solid rgba(91,141,239,0.32); border-bottom: none; color: var(--ink); }
+.c-mid { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 12px 0; }
+
+/* header row */
+.cmp-row.head .cmp-cell { padding-top: 22px; padding-bottom: 22px; }
+.cmp-row.head .c-left { border-top-left-radius: var(--radius); border-top-right-radius: var(--radius); }
+.cmp-row.head .c-right { border-top-left-radius: var(--radius); border-top-right-radius: var(--radius); position: relative; }
+.cmp-head-in { display: flex; align-items: center; gap: 13px; }
+.cmp-mark { flex: none; width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; }
+.cmp-mark svg { width: 18px; height: 18px; }
+.c-left .cmp-mark { background: #EAECF1; color: var(--ink-faint); }
+.c-right .cmp-mark { background: var(--accent); color: #fff; box-shadow: 0 8px 18px -6px rgba(91,141,239,0.8); }
+.cmp-title { font-family: var(--f-display); font-weight: 600; font-size: 21px; letter-spacing: -0.015em; white-space: nowrap; }
+.c-left .cmp-title { color: var(--ink-soft); }
+.cmp-badge { margin-left: auto; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--accent); background: var(--accent-soft); padding: 6px 11px; border-radius: 100px; white-space: nowrap; }
+.cmp-vs { font-family: var(--f-display); font-weight: 700; font-size: 13px; letter-spacing: 0.04em; color: var(--ink-faint); width: 40px; height: 40px; border-radius: 50%; background: var(--bg); border: 1px solid var(--silver); display: grid; place-items: center; box-shadow: var(--shadow-sm); }
+
+/* body rows */
+.cmp-row.body { position: relative; }
+.cmp-row.body .cmp-cell { border-top: 1px solid var(--silver-soft); min-height: 76px; }
+.cmp-row.body .c-right { border-top-color: rgba(91,141,239,0.18); }
+.cmp-row.body:last-of-type .c-left { border-bottom: 1px solid var(--silver-soft); border-bottom-left-radius: var(--radius); border-bottom-right-radius: var(--radius); }
+.cmp-row.body:last-of-type .c-right { border-bottom: 1px solid rgba(91,141,239,0.32); border-bottom-left-radius: var(--radius); border-bottom-right-radius: var(--radius); }
+.cmp-row.body .c-right { transition: background 0.25s ease; }
+.cmp-row.body:hover .c-right { background: linear-gradient(180deg,#F4F8FF,#EEF4FF); }
+
+.cell-ic { flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; margin-right: 14px; }
+.cell-ic svg { width: 12px; height: 12px; }
+.c-left .cell-ic { background: #EAECF1; color: #9AA3B4; }
+.c-right .cell-ic { background: var(--accent-soft); color: var(--accent); }
+.cell-tx { font-size: 15.5px; line-height: 1.4; }
+.c-left .cell-tx { color: var(--ink-soft); }
+.c-right .cell-tx b { font-weight: 600; color: var(--ink); }
+
+/* center rail: topic label + arrow */
+.cmp-topic { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); text-align: center; line-height: 1.3; }
+.cmp-arrow { width: 30px; height: 30px; border-radius: 50%; background: #fff; border: 1px solid var(--silver-soft); display: grid; place-items: center; color: var(--accent); box-shadow: var(--shadow-sm); transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease; }
+.cmp-arrow svg { width: 15px; height: 15px; }
+.cmp-row.body:hover .cmp-arrow { transform: translateX(3px); background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* reveal — whole rows cascade */
+.cmp-row.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.55s cubic-bezier(.2,.7,.2,1), transform 0.55s cubic-bezier(.2,.7,.2,1); }
+.cmp-row.reveal.in-view { opacity: 1; transform: translateY(0); }
+
+.pains-transition {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 32px 40px;
+  background: linear-gradient(100deg, var(--graphite), var(--graphite-2));
+  border-radius: var(--radius);
+  color: #fff;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+.pains-transition::after {
+  content: ""; position: absolute; right: -40px; top: -60px; width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(91,141,239,0.25), transparent 60%);
+  pointer-events: none;
+}
+.pains-transition .arrow {
+  flex: none; width: 52px; height: 52px; border-radius: 13px;
+  background: var(--accent); color: #fff; display: grid; place-items: center;
+  box-shadow: 0 10px 24px -8px rgba(91,141,239,0.8);
+}
+.pains-transition p { margin: 0; font-family: var(--f-display); font-size: clamp(20px, 1.9vw, 26px); font-weight: 500; line-height: 1.3; letter-spacing: -0.01em; position: relative; }
+@media (prefers-reduced-motion: reduce) {
+  .cmp-col.reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ============================================================
+   SERVICES (accordion)
+   ============================================================ */
+.services { background: transparent; color: #fff; position: relative; overflow: hidden; padding: 56px 0 112px; }
+.services::before { display: none; }
+.services-head { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; margin-bottom: 48px; }
+.services-head h2 { font-size: clamp(32px, 3.2vw, 48px); color: #fff; margin-top: 18px; line-height: 1.04; letter-spacing: -0.025em; }
+.services-head .tag { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.14em; color: #6E7C92; white-space: nowrap; }
+
+.acc { position: relative; display: flex; flex-direction: column; gap: 14px; }
+.acc-item {
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  background: rgba(255,255,255,0.028);
+  backdrop-filter: blur(6px);
+  overflow: hidden;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+.acc-item.open { border-color: rgba(91,141,239,0.5); background: rgba(91,141,239,0.05); }
+.acc-item:hover:not(.open) { border-color: rgba(255,255,255,0.2); }
+
+.acc-head {
+  width: 100%; display: flex; align-items: center; gap: 20px;
+  padding: 24px 28px; text-align: left; color: #fff;
+}
+.acc-num { font-family: var(--f-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.1em; flex: none; }
+.acc-thumb { flex: none; width: 64px; height: 64px; border-radius: 12px; overflow: hidden; position: relative; background: #0A0F18; border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 4px 12px -4px rgba(0,0,0,0.5); }
+.acc-thumb image-slot { position: absolute; inset: 0; width: 100%; height: 100%; --is-bg: #0A0F18; }
+.acc-thumb::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06); border-radius: 12px; pointer-events: none; }
+.acc-item.open .acc-thumb { border-color: rgba(91,141,239,0.55); }
+.acc-title { font-family: var(--f-display); font-weight: 600; font-size: clamp(18px, 1.5vw, 22px); letter-spacing: -0.01em; flex: 1; line-height: 1.2; }
+.acc-meta { font-family: var(--f-mono); font-size: 12px; color: #8B95A8; flex: none; letter-spacing: 0.04em; }
+.acc-from { color: #C3CBDA; }
+.acc-from b { color: #fff; font-weight: 600; }
+.acc-chev { flex: none; width: 38px; height: 38px; border-radius: 11px; border: 1px solid rgba(255,255,255,0.16); display: grid; place-items: center; color: #C3CBDA; transition: transform 0.35s cubic-bezier(.4,0,.2,1), background 0.3s, color 0.3s; }
+.acc-chev svg { width: 16px; height: 16px; }
+.acc-item.open .acc-chev { transform: rotate(180deg); background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.acc-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s cubic-bezier(.4,0,.2,1); }
+.acc-item.open .acc-body { grid-template-rows: 1fr; }
+.acc-body-in { overflow: hidden; }
+.acc-rows { padding: 4px 28px 22px; }
+.price-row {
+  display: grid;
+  grid-template-columns: 64px 1fr auto auto;
+  align-items: center; gap: 18px;
+  padding: 15px 0;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+.price-row:first-child { border-top: 1px solid rgba(255,255,255,0.12); }
+.price-row .code { font-family: var(--f-mono); font-size: 12px; color: var(--ink-faint); letter-spacing: 0.04em; }
+.price-row .name { color: #D7DEEA; font-size: 15.5px; line-height: 1.4; }
+.price-row .term { font-family: var(--f-mono); font-size: 11.5px; color: #8B95A8; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; justify-self: end; }
+.price-row .term::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: rgba(139,149,168,0.6); }
+.price-row .price { font-family: var(--f-display); font-weight: 600; font-size: 19px; color: #fff; justify-self: end; white-space: nowrap; min-width: 78px; text-align: right; letter-spacing: -0.01em; }
+.price-row .price .cur { color: var(--accent); font-size: 0.72em; font-weight: 500; margin-left: 1px; }
+
+.services-note { position: relative; margin-top: 30px; display: flex; align-items: flex-start; gap: 12px; color: #8B95A8; font-size: 13.5px; line-height: 1.55; max-width: 760px; }
+.services-note svg { flex: none; width: 16px; height: 16px; margin-top: 2px; color: var(--accent); }
+.services-note b { color: #C3CBDA; font-weight: 600; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer { background: var(--graphite); color: #C3CBDA; padding: 80px 0 36px; }
+.footer-top { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 56px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.footer-brand .brand-name { color: #fff; }
+.footer-brand .brand-mark { color: var(--accent); }
+.footer-brand .ftag { color: #6E7C92; font-size: 14px; margin: 16px 0 24px; }
+.footer-contact { display: flex; flex-direction: column; gap: 10px; font-size: 15px; }
+.footer-contact .ph { font-family: var(--f-mono); color: #fff; font-size: 16px; }
+.footer-contact .muted { color: #6E7C92; font-size: 13.5px; }
+.footer-col h4 { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #6E7C92; margin: 0 0 20px; font-weight: 500; }
+.footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 13px; }
+.footer-col a { color: #AEB8C9; font-size: 15px; transition: color 0.2s; }
+.footer-col a:hover { color: #fff; }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 26px; font-size: 13.5px; color: #6E7C92; gap: 20px; flex-wrap: wrap; }
+.footer-bottom a { color: #6E7C92; }
+.footer-bottom a:hover { color: #AEB8C9; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1280px) {
+  :root { --gutter: 36px; }
+  .hero-inner { gap: 48px; }
+}
+
+/* Tablet — 768 */
+@media (max-width: 1024px) {
+  .main-nav, .header-right .header-phone, .header-right .btn { display: none; }
+  .burger { display: flex; }
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .hero { padding: 132px 0 80px; }
+  .hero-left { max-width: 640px; }
+  .viewport { max-width: 600px; }
+  .numbers-grid { grid-template-columns: repeat(2, 1fr); gap: 40px 0; }
+  .stat { padding: 8px 32px; }
+  .stat:nth-child(odd) { padding-left: 0; border-left: none; }
+  .pains-grid, .compare { grid-template-columns: 1fr; }
+  @media (prefers-reduced-motion: reduce) { .cmp-row.reveal { opacity: 1; transform: none; } }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+}
+
+/* Mobile — 390 */
+@media (max-width: 560px) {
+  :root { --gutter: 20px; }
+  body { font-size: 16px; }
+  .header-inner { height: 70px; }
+  .mobile-drawer { inset: 70px 0 0 0; }
+  .hero { padding: 110px 0 64px; }
+  .promo-badge { flex-wrap: wrap; font-size: 13.5px; gap: 9px; }
+  .hero-cta-row { flex-direction: column; align-items: stretch; }
+  .hero-cta-row .btn { justify-content: center; }
+  .hero-cta-note { text-align: center; }
+  .viewport { aspect-ratio: 4 / 4.2; }
+  .vp-dim.d1 { left: 30%; }
+  .numbers { padding: 64px 0; }
+  .services { padding: 64px 0 72px; }
+  .services-head { flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 32px; }
+  .acc-head { padding: 20px 18px; gap: 14px; }
+  .acc-thumb { width: 48px; height: 48px; border-radius: 10px; }
+  .acc-meta.acc-from { display: none; }
+  .acc-rows { padding: 2px 18px 18px; }
+  .price-row { grid-template-columns: 1fr auto; gap: 3px 16px; padding: 14px 0; }
+  .price-row .code { grid-column: 1; grid-row: 1; }
+  .price-row .price { grid-column: 2; grid-row: 1 / 3; align-self: center; }
+  .price-row .name { grid-column: 1; grid-row: 2; }
+  .price-row .term { grid-column: 1; grid-row: 3; justify-self: start; margin-top: 4px; }
+  .numbers-head { flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 40px; }
+  .numbers-grid { grid-template-columns: 1fr; gap: 0; }
+  .stat { padding: 26px 0; border-left: none; border-top: 1px solid rgba(255,255,255,0.1); }
+  .stat:first-child { border-top: none; padding-top: 0; }
+  .stat .label { max-width: none; }
+  .pains { padding: 72px 0 80px; }
+  .pains-grid { grid-template-columns: 1fr; }
+  /* comparison → stacked cards on mobile */
+  .cmp-row.head { display: none; }
+  .cmp-row.body { display: block; border: 1px solid rgba(91,141,239,0.3); border-radius: var(--radius); margin-bottom: 14px; overflow: hidden; background: #fff; }
+  .cmp-row.body .cmp-cell { border: none; min-height: 0; }
+  .cmp-row.body:last-of-type .c-left, .cmp-row.body:last-of-type .c-right { border-radius: 0; }
+  .c-mid { flex-direction: row; justify-content: flex-start; gap: 12px; padding: 13px 20px; background: var(--graphite); }
+  .cmp-topic { color: #fff; font-size: 11px; }
+  .cmp-arrow { display: none; }
+  .c-right { background: linear-gradient(180deg,#fff,#FAFCFF); order: 2; padding: 16px 20px; }
+  .c-left { background: var(--bg-2); order: 3; padding: 14px 20px; }
+  .c-left .cell-tx { font-size: 14px; }
+  .c-left::before { content: "замість · "; font-family: var(--f-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); align-self: center; margin-right: 8px; flex: none; }
+  .pains-transition { flex-direction: column; align-items: flex-start; gap: 18px; padding: 28px 24px; }
+  .footer-top { grid-template-columns: 1fr; gap: 36px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ============================ HEADER ============================ -->
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="#top" class="brand" aria-label="F-16 LAB">
+      <span class="brand-mark">
+        <svg viewBox="0 0 34 34" fill="none" aria-hidden="true">
+          <circle cx="17" cy="17" r="11" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M17 3.5v9M17 21.5v9M3.5 17h9M21.5 17h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="17" cy="17" r="2.4" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="brand-name">F-16<span class="lab">LAB</span></span>
+    </a>
+
+    <nav class="main-nav">
+      <a href="#services">Послуги</a>
+      <a href="#process">Як ми працюємо</a>
+      <a href="#portfolio">Портфоліо</a>
+      <a href="#reviews">Відгуки</a>
+      <a href="#contacts">Контакти</a>
+    </nav>
+
+    <div class="header-right">
+      <span class="header-phone">+38 (0XX) XXX XX XX</span>
+      <a href="#contacts" class="btn btn-primary">
+        <svg class="tg-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 2.7 11.7c-1.1.4-1.1 1.4-.2 1.7l4.9 1.5L19 6.6c.5-.4 1-.2.6.2l-9.4 8.5-.4 5c.5 0 .7-.2 1-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.6-1.4Z"/></svg>
+        Написати в Telegram
+      </a>
+      <button class="burger" id="burger" aria-label="Меню"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="drawer">
+  <a href="#services">Послуги</a>
+  <a href="#process">Як ми працюємо</a>
+  <a href="#portfolio">Портфоліо</a>
+  <a href="#reviews">Відгуки</a>
+  <a href="#contacts">Контакти</a>
+  <a href="#contacts" class="btn btn-primary">Написати в Telegram</a>
+  <span class="header-phone">+38 (0XX) XXX XX XX</span>
+</div>
+
+<main id="top">
+
+<!-- ============================ HERO ============================ -->
+<section class="hero" data-screen-label="Hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="container hero-inner">
+
+    <div class="hero-left">
+      <div class="hero-badges">
+        <div class="promo-badge">
+          <span class="gift">🎁</span>
+          <span>Перші <b>3 одиниці</b> — зі знижкою</span>
+          <span class="pill">−50%</span>
+        </div>
+        <div class="spec-badge">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Готова робота <b>до 7 днів</b></span>
+        </div>
+      </div>
+
+      <h1>Зуботехнічна лабораторія для <span class="em">складних робіт</span></h1>
+
+      <p class="hero-reinforcer">Надсилаєте STL або відбиток — отримуєте готову роботу. Без дзвінків з уточненнями, без зривів термінів, без правок за ваш рахунок.</p>
+
+      <div class="hero-cta-row">
+        <a href="#contacts" class="btn btn-primary btn-lg">Отримати безкоштовну консультацію</a>
+        <span class="hero-cta-note">або напишіть одразу в <a href="#">Telegram</a> / <a href="#">Viber</a></span>
+      </div>
+    </div>
+
+    <!-- Non-standard centerpiece: live metrology / CAD viewport -->
+    <div class="hero-right">
+      <div class="viewport" id="viewport">
+        <image-slot id="hero-macro" fit="cover"
+          src="https://images.pexels.com/photos/33800642/pexels-photo-33800642.jpeg?auto=compress&cs=tinysrgb&w=1300"
+          placeholder="МАКРО · циркон. коронка / балкова конструкція"></image-slot>
+        <div class="viewport-image-overlay"></div>
+
+        <div class="vp-ruler top">
+          <div class="vp-tick"><span>00</span></div>
+          <div class="vp-tick"><span>10</span></div>
+          <div class="vp-tick"><span>20</span></div>
+          <div class="vp-tick"><span>30</span></div>
+          <div class="vp-tick"><span>40</span></div>
+          <div class="vp-tick"><span>mm</span></div>
+        </div>
+        <div class="vp-ruler left"></div>
+
+        <div class="vp-hud"><span class="dot"></span>CAD/CAM · MILLING</div>
+
+        <div class="vp-scan" id="vpScan"></div>
+        <div class="vp-reticle" id="vpReticle"><i></i></div>
+
+        <div class="vp-dim d1"><span class="lead"></span><span class="val">gap <em>&lt; 50&nbsp;µm</em></span></div>
+        <div class="vp-dim d2"><span class="lead"></span><span class="val">wall <em>0.50&nbsp;mm</em></span></div>
+
+        <div class="vp-status">
+          <span class="step active">STL</span><span class="arr">→</span>
+          <span class="step active">MILL</span><span class="arr">→</span>
+          <span class="step">SINTER</span><span class="arr">→</span>
+          <span class="step">QC</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================ DARK BAND (numbers + services) ============================ -->
+<div class="dark-band">
+<!-- ============================ NUMBERS ============================ -->
+<section class="numbers" data-screen-label="Numbers">
+  <div class="container">
+    <div class="numbers-head">
+      <h2>F-16 LAB у цифрах</h2>
+    </div>
+    <div class="numbers-grid">
+      <div class="stat">
+        <div class="num"><span data-count="10">0</span></div>
+        <div class="label">років досвіду</div>
+      </div>
+      <div class="stat">
+        <div class="num"><span data-count="700">0</span><span class="suffix">+</span></div>
+        <div class="label">коронок щомісяця</div>
+      </div>
+      <div class="stat">
+        <div class="num"><span data-count="20">0</span></div>
+        <div class="label">клінік-партнерів</div>
+      </div>
+      <div class="stat">
+        <div class="num"><span class="pre">до</span><span data-count="7">0</span></div>
+        <div class="label">днів від файлу до відправки</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SERVICES ============================ -->
+<section class="services" id="services" data-screen-label="Services">
+  <div class="container">
+    <div class="services-head">
+      <div>
+        <span class="kicker on-dark">Послуги та ціни · 2026</span>
+        <h2>Що ми виготовляємо</h2>
+      </div>
+    </div>
+
+    <div class="acc" id="acc">
+
+      <div class="acc-item open">
+        <button class="acc-head" aria-expanded="true">
+          <span class="acc-num">1</span>
+          <span class="acc-thumb"><image-slot id="acc-thumb-1" fit="cover" src="https://images.pexels.com/photos/33748061/pexels-photo-33748061.jpeg?auto=compress&cs=tinysrgb&w=400" placeholder=""></image-slot></span>
+          <span class="acc-title">Безметалеві конструкції</span>
+          <span class="acc-meta acc-from">від <b>55&nbsp;€</b></span>
+          <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </button>
+        <div class="acc-body"><div class="acc-body-in"><div class="acc-rows">
+          <div class="price-row"><span class="code">1.1</span><span class="name">Коронка / вкладка / накладка / вінір (склокераміка) + 3D фарбування</span><span class="term">7 днів</span><span class="price">80<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">1.2</span><span class="name">Коронка / вкладка / вінір (склокераміка) з нанесенням кераміки</span><span class="term">7 днів</span><span class="price">100<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">1.3</span><span class="name">Коронка цирконієва одношарова + 3D розфарбування</span><span class="term">7 днів</span><span class="price">55<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">1.4</span><span class="name">Коронка цирконієва багатошарова + 3D розфарбування</span><span class="term">7 днів</span><span class="price">65<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">1.5</span><span class="name">Коронка цирконієва з нанесенням кераміки</span><span class="term">7 днів</span><span class="price">80<span class="cur">&nbsp;€</span></span></div>
+        </div></div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head" aria-expanded="false">
+          <span class="acc-num">2</span>
+          <span class="acc-thumb"><image-slot id="acc-thumb-2" fit="cover" src="https://images.pexels.com/photos/33748024/pexels-photo-33748024.jpeg?auto=compress&cs=tinysrgb&w=400" placeholder=""></image-slot></span>
+          <span class="acc-title">Протезування на імплантах</span>
+          <span class="acc-meta acc-from">від <b>40&nbsp;€</b></span>
+          <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </button>
+        <div class="acc-body"><div class="acc-body-in"><div class="acc-rows">
+          <div class="price-row"><span class="code">2.1</span><span class="name">Коронка цирконієва одношарова, гвинтова фіксація + 3D розфарбування</span><span class="term">7 днів</span><span class="price">65<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">2.2</span><span class="name">Коронка цирконієва багатошарова, гвинтова фіксація + 3D розфарбування</span><span class="term">7 днів</span><span class="price">70<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">2.3</span><span class="name">Коронка цирконієва, гвинтова фіксація з нанесенням кераміки</span><span class="term">7 днів</span><span class="price">85<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">2.4</span><span class="name">Абатмент цирконієвий індивідуальний</span><span class="term">5 днів</span><span class="price">40<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">2.5</span><span class="name">Супраструктура PMMA тривалого носіння на лего-/SLM-балці з гвинтовою фіксацією</span><span class="term">7 днів</span><span class="price">400<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">2.6</span><span class="name">Супраструктура PMMA тривалого носіння на титановій балці з гвинтовою фіксацією</span><span class="term">10 днів</span><span class="price">850<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">2.7</span><span class="name">Супраструктура цирконієва на титановій балці з гвинтовою фіксацією</span><span class="term">10 днів</span><span class="price">1700<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">2.8</span><span class="name">Супраструктура цирконієва на SLM-балці з гвинтовою фіксацією</span><span class="term">10 днів</span><span class="price">1000<span class="cur">&nbsp;€</span></span></div>
+        </div></div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head" aria-expanded="false">
+          <span class="acc-num">3</span>
+          <span class="acc-thumb"><image-slot id="acc-thumb-3" fit="cover" src="https://images.pexels.com/photos/7788371/pexels-photo-7788371.jpeg?auto=compress&cs=tinysrgb&w=400" placeholder=""></image-slot></span>
+          <span class="acc-title">Тимчасові конструкції</span>
+          <span class="acc-meta acc-from">від <b>10&nbsp;€</b></span>
+          <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </button>
+        <div class="acc-body"><div class="acc-body-in"><div class="acc-rows">
+          <div class="price-row"><span class="code">3.1</span><span class="name">Коронка тимчасового призначення (друкована)</span><span class="term">5 днів</span><span class="price">10<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">3.2</span><span class="name">Коронка PMMA тривалого призначення</span><span class="term">5 днів</span><span class="price">15<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">3.3</span><span class="name">Коронка тимчасового призначення з гвинтовою фіксацією</span><span class="term">5 днів</span><span class="price">16<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">3.4</span><span class="name">Коронка PMMA тривалого призначення з гвинтовою фіксацією</span><span class="term">5 днів</span><span class="price">20<span class="cur">&nbsp;€</span></span></div>
+        </div></div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head" aria-expanded="false">
+          <span class="acc-num">4</span>
+          <span class="acc-thumb"><image-slot id="acc-thumb-4" fit="cover" src="https://images.pexels.com/photos/33800640/pexels-photo-33800640.jpeg?auto=compress&cs=tinysrgb&w=400" placeholder=""></image-slot></span>
+          <span class="acc-title">Капи та сплінти</span>
+          <span class="acc-meta acc-from">від <b>20&nbsp;€</b></span>
+          <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </button>
+        <div class="acc-body"><div class="acc-body-in"><div class="acc-rows">
+          <div class="price-row"><span class="code">4.1</span><span class="name">Капа ретенційна</span><span class="term">2 дні</span><span class="price">20<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">4.2</span><span class="name">Капа міорелаксуюча</span><span class="term">2 дні</span><span class="price">50<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">4.3</span><span class="name">Депрограматор Койса</span><span class="term">2 дні</span><span class="price">45<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">4.4</span><span class="name">Індивідуальний гнатометр</span><span class="term">5 днів</span><span class="price">50<span class="cur">&nbsp;€</span></span></div>
+        </div></div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head" aria-expanded="false">
+          <span class="acc-num">5</span>
+          <span class="acc-thumb"><image-slot id="acc-thumb-5" fit="cover" src="https://images.pexels.com/photos/33800637/pexels-photo-33800637.jpeg?auto=compress&cs=tinysrgb&w=400" placeholder=""></image-slot></span>
+          <span class="acc-title">Цифрова діагностика та супровід</span>
+          <span class="acc-meta acc-from">від <b>5&nbsp;€</b></span>
+          <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </button>
+        <div class="acc-body"><div class="acc-body-in"><div class="acc-rows">
+          <div class="price-row"><span class="code">5.1</span><span class="name">Цифровий Wax-up (1 од.)</span><span class="term">7 днів</span><span class="price">12<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">5.2</span><span class="name">Фрезерований Mock-up PMMA (ортотік) (1 од.)</span><span class="term">7 днів</span><span class="price">15<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">5.3</span><span class="name">Друк моделі (одна щелепа)</span><span class="term">2 дні</span><span class="price">15<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">5.4</span><span class="name">Силіконовий ключ (для перенесення Mock-up)</span><span class="term">1 день</span><span class="price">8<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">5.5</span><span class="name">Ключ для контролю препарування (одна щелепа)</span><span class="term">2 дні</span><span class="price">15<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">5.6</span><span class="name">Діагностичні моделі (друковані)</span><span class="term">1 день</span><span class="price">12<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">5.7</span><span class="name">Діагностичні моделі (гіпсові)</span><span class="term">1 день</span><span class="price">6<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">5.8</span><span class="name">Трансфер-чек</span><span class="term">2 дні</span><span class="price">5<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">5.9</span><span class="name">Ковпачок для препарування</span><span class="term">1 день</span><span class="price">5<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">5.10</span><span class="name">Прототип конструкції постійної роботи</span><span class="term">2 дні</span><span class="price">12<span class="cur">&nbsp;€</span></span></div>
+        </div></div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head" aria-expanded="false">
+          <span class="acc-num">6</span>
+          <span class="acc-thumb"><image-slot id="acc-thumb-6" fit="cover" src="https://images.pexels.com/photos/33748049/pexels-photo-33748049.jpeg?auto=compress&cs=tinysrgb&w=400" placeholder=""></image-slot></span>
+          <span class="acc-title">Додаткові роботи</span>
+          <span class="acc-meta acc-from">від <b>10&nbsp;€</b></span>
+          <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </button>
+        <div class="acc-body"><div class="acc-body-in"><div class="acc-rows">
+          <div class="price-row"><span class="code">6.1</span><span class="name">Внутрішньо-культева вкладка</span><span class="term">1 день</span><span class="price">20<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">6.2</span><span class="name">Композитна ясна (1 од.)</span><span class="term">7 днів</span><span class="price">10<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">6.3</span><span class="name">Керамічна ясна (1 од.)</span><span class="term">7 днів</span><span class="price">15<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">6.4</span><span class="name">Індивідуальна ложка</span><span class="term">2 дні</span><span class="price">12<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">6.5</span><span class="name">Прикусний восковий валик на жорсткому базисі</span><span class="term">2 дні</span><span class="price">12<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">6.6</span><span class="name">Шаблон для корекції десни</span><span class="term">1 день</span><span class="price">25<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">6.7</span><span class="name">Рефрактор</span><span class="term">7–10 днів</span><span class="price">150<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">6.8</span><span class="name">Приміл</span><span class="term">7–10 днів</span><span class="price">40<span class="cur">&nbsp;€</span></span></div>
+        </div></div></div>
+      </div>
+
+    </div>
+
+    <p class="services-note">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 11v5M12 7.5v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span>Розрахунок у гривнях за актуальним курсом євро. <b>Термін виготовлення</b> — час виконання замовлення в лабораторії без урахування логістики (неділя — вихідний) і рахується з моменту отримання всієї інформації для замовлення.</span>
+    </p>
+  </div>
+</section>
+</div>
+<!-- /dark-band -->
+
+<!-- ============================ PAINS ============================ -->
+<section class="pains" data-screen-label="Pains">
+  <div class="container">
+    <div class="pains-head">
+      <span class="kicker">Болі клієнтів</span>
+      <h2>Відчуйте різницю</h2>
+    </div>
+
+    <div class="compare">
+      <div class="cmp-row head">
+        <div class="cmp-cell c-left">
+          <div class="cmp-head-in"><span class="cmp-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span><span class="cmp-title">Як у інших</span></div>
+        </div>
+        <div class="cmp-cell c-mid"><span class="cmp-vs">VS</span></div>
+        <div class="cmp-cell c-right">
+          <div class="cmp-head-in"><span class="cmp-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cmp-title">Як у нас</span><span class="cmp-badge">F-16 LAB</span></div>
+        </div>
+      </div>
+
+      <div class="cmp-row body reveal">
+        <div class="cmp-cell c-left"><span class="cell-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span><span class="cell-tx">Терміни узгоджуються індивідуально і можуть затягуватися</span></div>
+        <div class="cmp-cell c-mid">
+          <span class="cmp-topic">Терміни</span>
+          <span class="cmp-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="cmp-cell c-right"><span class="cell-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-tx"><b>До 7 днів</b> від файлу до відправки — фіксуємо при замовленні</span></div>
+      </div>
+      <div class="cmp-row body reveal">
+        <div class="cmp-cell c-left"><span class="cell-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span><span class="cell-tx">Питання щодо переробки вирішуються по-різному</span></div>
+        <div class="cmp-cell c-mid">
+          <span class="cmp-topic">Переробка</span>
+          <span class="cmp-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="cmp-cell c-right"><span class="cell-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-tx">Корекція або переробка — <b>завжди за рахунок лабораторії</b></span></div>
+      </div>
+      <div class="cmp-row body reveal">
+        <div class="cmp-cell c-left"><span class="cell-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span><span class="cell-tx">Не всі лабораторії беруться за складні конструкції</span></div>
+        <div class="cmp-cell c-mid">
+          <span class="cmp-topic">Складні роботи</span>
+          <span class="cmp-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="cmp-cell c-right"><span class="cell-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-tx">Балкові та супраструктури — <b>наша основна спеціалізація</b></span></div>
+      </div>
+      <div class="cmp-row body reveal">
+        <div class="cmp-cell c-left"><span class="cell-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span><span class="cell-tx">Залежить від завантаженості лабораторії</span></div>
+        <div class="cmp-cell c-mid">
+          <span class="cmp-topic">Комунікація</span>
+          <span class="cmp-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="cmp-cell c-right"><span class="cell-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-tx">Telegram&nbsp;/&nbsp;Viber — <b>відповідь протягом години</b></span></div>
+      </div>
+      <div class="cmp-row body reveal">
+        <div class="cmp-cell c-left"><span class="cell-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span><span class="cell-tx">Буває різною від замовлення до замовлення</span></div>
+        <div class="cmp-cell c-mid">
+          <span class="cmp-topic">Якість</span>
+          <span class="cmp-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="cmp-cell c-right"><span class="cell-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-tx">Стабільна якість — <b>контроль на кожному етапі</b></span></div>
+      </div>
+      <div class="cmp-row body reveal">
+        <div class="cmp-cell c-left"><span class="cell-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span><span class="cell-tx">Наперед або частково наперед</span></div>
+        <div class="cmp-cell c-mid">
+          <span class="cmp-topic">Оплата</span>
+          <span class="cmp-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="cmp-cell c-right"><span class="cell-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-tx"><b>Після отримання та перевірки</b> роботи</span></div>
+      </div>
+      <div class="cmp-row body reveal">
+        <div class="cmp-cell c-left"><span class="cell-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span><span class="cell-tx">За домовленістю</span></div>
+        <div class="cmp-cell c-mid">
+          <span class="cmp-topic">Доставка</span>
+          <span class="cmp-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="cmp-cell c-right"><span class="cell-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-tx">Доставку <b>оплачує лабораторія</b></span></div>
+      </div>
+    </div>
+
+    <div class="pains-transition">
+      <span class="arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <p>F-16&nbsp;LAB створена саме для тих, хто втомився від цих проблем.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="site-footer" id="contacts">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="brand">
+          <span class="brand-mark">
+            <svg viewBox="0 0 34 34" fill="none" aria-hidden="true">
+              <circle cx="17" cy="17" r="11" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M17 3.5v9M17 21.5v9M3.5 17h9M21.5 17h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="17" cy="17" r="2.4" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="brand-name">F-16<span class="lab">LAB</span></span>
+        </div>
+        <p class="ftag">Зуботехнічна лабораторія</p>
+        <div class="footer-contact">
+          <span class="ph">+38 (0XX) XXX XX XX</span>
+          <span>Telegram / Viber</span>
+          <span class="muted">Щодня 10:00–20:00</span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Навігація</h4>
+        <ul>
+          <li><a href="#services">Послуги</a></li>
+          <li><a href="#process">Як ми працюємо</a></li>
+          <li><a href="#portfolio">Портфоліо</a></li>
+          <li><a href="#reviews">Відгуки</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#contacts">Контакти</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Послуги</h4>
+        <ul>
+          <li><a href="#">Супраструктури</a></li>
+          <li><a href="#">Балкові конструкції</a></li>
+          <li><a href="#">Коронки та мости</a></li>
+          <li><a href="#">Друковані коронки (PMMA)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Матеріали</h4>
+        <ul>
+          <li><a href="#">Цирконій</a></li>
+          <li><a href="#">Дисилікат літію</a></li>
+          <li><a href="#">Прес-кераміка</a></li>
+          <li><a href="#">PMMA</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© F-16 LAB, 2026</span>
+      <a href="#">Політика конфіденційності</a>
+    </div>
+  </div>
+</footer>
+
+<nav class="switcher" aria-label="Концепти">
+  <a href="F-16-LAB.html" class="active">01 · Tech</a>
+  <a href="F-16-LAB-Concept-2.html">02 · Editorial</a>
+</nav>
+<style>
+.switcher{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:80;display:flex;align-items:center;gap:4px;
+  background:rgba(12,19,32,.9);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:5px;
+  box-shadow:0 30px 60px -20px rgba(12,19,32,.55);}
+.switcher a{padding:8px 16px;border-radius:100px;color:#AEB8C9;font-weight:600;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.04em;transition:.2s;white-space:nowrap;}
+.switcher a:hover{color:#fff;}
+.switcher a.active{background:#5B8DEF;color:#fff;}
+@media (max-width:560px){.switcher{bottom:14px;}}
+</style>
+
+<div id="tweaks-root"></div>
+
+<script>
+/* BEGIN USAGE */
+/**
+ * <image-slot> — user-fillable image placeholder.
+ *
+ * Drop this into a deck, mockup, or page wherever you want the user to
+ * supply an image. You control the slot's shape and size; the user fills it
+ * by dragging an image file onto it (or clicking to browse). The dropped
+ * image persists across reloads via a .image-slots.state.json sidecar —
+ * same read-via-fetch / write-via-window.omelette pattern as
+ * design_canvas.jsx, so the filled slot shows on share links, downloaded
+ * zips, and PPTX export. Outside the omelette runtime the slot is read-only.
+ *
+ * The host bridge only allows sidecar writes at the project root, so the
+ * HTML that uses this component is assumed to live at the project root too
+ * (same constraint as design_canvas.jsx).
+ *
+ * Attributes:
+ *   id           Persistence key. REQUIRED for the drop to survive reload —
+ *                every slot on the page needs a distinct id.
+ *   shape        'rect' | 'rounded' | 'circle' | 'pill'   (default 'rounded')
+ *                'circle' applies 50% border-radius; on a non-square slot
+ *                that's an ellipse — set equal width and height for a true
+ *                circle.
+ *   radius       Corner radius in px for 'rounded'.       (default 12)
+ *   mask         Any CSS clip-path value. Overrides `shape` — use this for
+ *                hexagons, blobs, arbitrary polygons.
+ *   fit          object-fit: cover | contain | fill.       (default 'cover')
+ *                With cover (the default) double-clicking the filled slot
+ *                enters a reframe mode: the whole image spills past the mask
+ *                (translucent outside, opaque inside), drag to reposition,
+ *                corner-drag to scale. The crop persists alongside the image
+ *                in the sidecar. contain/fill stay static.
+ *   position     object-position for fit=contain|fill.     (default '50% 50%')
+ *   placeholder  Empty-state caption.                      (default 'Drop an image')
+ *   src          Optional initial/fallback image URL. A user drop overrides
+ *                it; clearing the drop reveals src again.
+ *
+ * Size and layout come from ordinary CSS on the element — width/height
+ * inline or from a parent grid — so it composes with any layout.
+ *
+ * Usage:
+ *   <image-slot id="hero"   style="width:800px;height:450px" shape="rounded" radius="20"
+ *               placeholder="Drop a hero image"></image-slot>
+ *   <image-slot id="avatar" style="width:120px;height:120px" shape="circle"></image-slot>
+ *   <image-slot id="kite"   style="width:300px;height:300px"
+ *               mask="polygon(50% 0, 100% 50%, 50% 100%, 0 50%)"></image-slot>
+ */
+/* END USAGE */
+
+(() => {
+  const STATE_FILE = '.image-slots.state.json';
+  // 2× a ~600px slot in a 1920-wide deck — retina-sharp without making the
+  // sidecar enormous. A 1200px WebP at q=0.85 is ~150-300KB.
+  const MAX_DIM = 1200;
+  // Raster formats only. SVG is excluded (can carry script; createImageBitmap
+  // on SVG blobs is inconsistent). GIF is excluded because the canvas
+  // re-encode keeps only the first frame, so an animated GIF would silently
+  // go still — better to reject than surprise.
+  const ACCEPT = ['image/png', 'image/jpeg', 'image/webp', 'image/avif'];
+
+  // ── Shared sidecar store ────────────────────────────────────────────────
+  // One fetch + immediate write-on-change for every <image-slot> on the
+  // page. Reads via fetch() so viewing works anywhere the HTML and sidecar
+  // are served together; writes go through window.omelette.writeFile, which
+  // the host allowlists to *.state.json basenames only.
+  const subs = new Set();
+  let slots = {};
+  // ids explicitly cleared before the sidecar fetch resolved — otherwise
+  // the merge below can't tell "never set" from "just deleted" and would
+  // resurrect the sidecar's stale value.
+  const tombstones = new Set();
+  let loaded = false;
+  let loadP = null;
+
+  function load() {
+    if (loadP) return loadP;
+    loadP = fetch(STATE_FILE)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => {
+        // Merge: sidecar loses to any in-memory change that raced ahead of
+        // the fetch (drop or clear) so neither is clobbered by hydration.
+        if (j && typeof j === 'object') {
+          const merged = Object.assign({}, j, slots);
+          // A framing-only write that raced ahead of hydration must not
+          // drop a user image that's only on disk — inherit u from the
+          // sidecar for any in-memory entry that lacks one.
+          for (const k in slots) {
+            if (merged[k] && !merged[k].u && j[k]) {
+              merged[k].u = typeof j[k] === 'string' ? j[k] : j[k].u;
+            }
+          }
+          for (const id of tombstones) delete merged[id];
+          slots = merged;
+        }
+        tombstones.clear();
+      })
+      .catch(() => {})
+      .then(() => { loaded = true; subs.forEach((fn) => fn()); });
+    return loadP;
+  }
+
+  // Serialize writes so two near-simultaneous drops on different slots
+  // can't reorder at the backend and leave the sidecar with only the
+  // first. A save requested mid-flight just marks dirty and re-fires on
+  // completion with the then-current slots.
+  let saving = false;
+  let saveDirty = false;
+  function save() {
+    if (saving) { saveDirty = true; return; }
+    const w = window.omelette && window.omelette.writeFile;
+    if (!w) return;
+    saving = true;
+    Promise.resolve(w(STATE_FILE, JSON.stringify(slots)))
+      .catch(() => {})
+      .then(() => { saving = false; if (saveDirty) { saveDirty = false; save(); } });
+  }
+
+  const S_MAX = 5;
+  const clampS = (s) => Math.max(1, Math.min(S_MAX, s));
+
+  // Normalize a stored slot value. Pre-reframe sidecars stored a bare
+  // data-URL string; newer ones store {u, s, x, y}. Either shape is valid.
+  function getSlot(id) {
+    const v = slots[id];
+    if (!v) return null;
+    return typeof v === 'string' ? { u: v, s: 1, x: 0, y: 0 } : v;
+  }
+
+  function setSlot(id, val) {
+    if (!id) return;
+    if (val) { slots[id] = val; tombstones.delete(id); }
+    else { delete slots[id]; if (!loaded) tombstones.add(id); }
+    subs.forEach((fn) => fn());
+    // A drop is rare + high-value — write immediately so nav-away can't lose
+    // it. Gate on the initial read so we don't overwrite a sidecar we haven't
+    // merged yet; the merge in load() keeps this change once the read lands.
+    if (loaded) save(); else load().then(save);
+  }
+
+  // ── Image downscale ─────────────────────────────────────────────────────
+  // Encode through a canvas so the sidecar carries resized bytes, not the
+  // raw upload. Longest side is capped at 2× the slot's rendered width
+  // (retina) and at MAX_DIM. WebP keeps alpha and is ~10× smaller than PNG
+  // for photos, so there's no need for per-image format picking.
+  async function toDataUrl(file, targetW) {
+    const bitmap = await createImageBitmap(file);
+    try {
+      const cap = Math.min(MAX_DIM, Math.max(1, Math.round(targetW * 2)) || MAX_DIM);
+      const scale = Math.min(1, cap / Math.max(bitmap.width, bitmap.height));
+      const w = Math.max(1, Math.round(bitmap.width * scale));
+      const h = Math.max(1, Math.round(bitmap.height * scale));
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(bitmap, 0, 0, w, h);
+      return canvas.toDataURL('image/webp', 0.85);
+    } finally {
+      bitmap.close && bitmap.close();
+    }
+  }
+
+  // ── Custom element ──────────────────────────────────────────────────────
+  const stylesheet =
+    ':host{display:inline-block;position:relative;vertical-align:top;' +
+    '  font:13px/1.3 system-ui,-apple-system,sans-serif;color:rgba(0,0,0,.55);width:240px;height:160px}' +
+    '.frame{position:absolute;inset:0;overflow:hidden;background:rgba(0,0,0,.04)}' +
+    // .frame img (clipped) and .spill (unclipped ghost + handles) share the
+    // same left/top/width/height in frame-%, computed by _applyView(), so the
+    // inside-mask crop and the outside-mask spill stay pixel-aligned.
+    '.frame img{position:absolute;max-width:none;transform:translate(-50%,-50%);' +
+    '  -webkit-user-drag:none;user-select:none;touch-action:none}' +
+    // Reframe mode (double-click): the full image spills past the mask. The
+    // spill layer is sized to the IMAGE bounds so its corners are where the
+    // resize handles belong. The ghost <img> inside is translucent; the real
+    // clipped <img> underneath shows the opaque in-mask crop.
+    '.spill{position:absolute;transform:translate(-50%,-50%);display:none;z-index:1;' +
+    '  cursor:grab;touch-action:none}' +
+    ':host([data-panning]) .spill{cursor:grabbing}' +
+    '.spill .ghost{position:absolute;inset:0;width:100%;height:100%;opacity:.35;' +
+    '  pointer-events:none;-webkit-user-drag:none;user-select:none;' +
+    '  box-shadow:0 0 0 1px rgba(0,0,0,.2),0 12px 32px rgba(0,0,0,.2)}' +
+    '.spill .handle{position:absolute;width:12px;height:12px;border-radius:50%;' +
+    '  background:#fff;box-shadow:0 0 0 1.5px #c96442,0 1px 3px rgba(0,0,0,.3);' +
+    '  transform:translate(-50%,-50%)}' +
+    '.spill .handle[data-c=nw]{left:0;top:0;cursor:nwse-resize}' +
+    '.spill .handle[data-c=ne]{left:100%;top:0;cursor:nesw-resize}' +
+    '.spill .handle[data-c=sw]{left:0;top:100%;cursor:nesw-resize}' +
+    '.spill .handle[data-c=se]{left:100%;top:100%;cursor:nwse-resize}' +
+    ':host([data-reframe]){z-index:10}' +
+    ':host([data-reframe]) .spill{display:block}' +
+    ':host([data-reframe]) .frame{box-shadow:0 0 0 2px #c96442}' +
+    '.empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;' +
+    '  justify-content:center;gap:6px;text-align:center;padding:12px;box-sizing:border-box;' +
+    '  cursor:pointer;user-select:none}' +
+    '.empty svg{opacity:.45}' +
+    '.empty .cap{max-width:90%;font-weight:500;letter-spacing:.01em}' +
+    '.empty .sub{font-size:11px}' +
+    '.empty .sub u{text-underline-offset:2px;text-decoration-color:rgba(0,0,0,.25)}' +
+    '.empty:hover .sub u{color:rgba(0,0,0,.75);text-decoration-color:currentColor}' +
+    ':host([data-over]) .frame{outline:2px solid #c96442;outline-offset:-2px;' +
+    '  background:rgba(201,100,66,.10)}' +
+    '.ring{position:absolute;inset:0;pointer-events:none;border:1.5px dashed rgba(0,0,0,.25);' +
+    '  transition:border-color .12s}' +
+    ':host([data-over]) .ring{border-color:#c96442}' +
+    ':host([data-filled]) .ring{display:none}' +
+    // Controls sit BELOW the mask (top:100%), absolutely positioned so the
+    // author-declared slot height is unaffected. The gap is padding, not a
+    // top offset, so the hover target stays contiguous with the frame.
+    '.ctl{position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:8px;' +
+    '  display:flex;gap:6px;opacity:0;pointer-events:none;transition:opacity .12s;z-index:2;' +
+    '  white-space:nowrap}' +
+    ':host([data-filled][data-editable]:hover) .ctl,:host([data-reframe]) .ctl' +
+    '  {opacity:1;pointer-events:auto}' +
+    '.ctl button{appearance:none;border:0;border-radius:6px;padding:5px 10px;cursor:pointer;' +
+    '  background:rgba(0,0,0,.65);color:#fff;font:11px/1 system-ui,-apple-system,sans-serif;' +
+    '  backdrop-filter:blur(6px)}' +
+    '.ctl button:hover{background:rgba(0,0,0,.8)}' +
+    '.err{position:absolute;left:8px;bottom:8px;right:8px;color:#b3261e;font-size:11px;' +
+    '  background:rgba(255,255,255,.85);padding:4px 6px;border-radius:5px;pointer-events:none}';
+
+  const icon =
+    '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+    'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' +
+    '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>' +
+    '<path d="m21 15-5-5L5 21"/></svg>';
+
+  class ImageSlot extends HTMLElement {
+    static get observedAttributes() {
+      return ['shape', 'radius', 'mask', 'fit', 'position', 'placeholder', 'src', 'id'];
+    }
+
+    constructor() {
+      super();
+      const root = this.attachShadow({ mode: 'open' });
+      // .spill and .ctl sit OUTSIDE .frame so overflow:hidden + border-radius
+      // on the frame (circle, pill, rounded) can't clip them.
+      root.innerHTML =
+        '<style>' + stylesheet + '</style>' +
+        '<div class="frame" part="frame">' +
+        '  <img part="image" alt="" draggable="false" style="display:none">' +
+        '  <div class="empty" part="empty">' + icon +
+        '    <div class="cap"></div>' +
+        '    <div class="sub">or <u>browse files</u></div></div>' +
+        '  <div class="ring" part="ring"></div>' +
+        '</div>' +
+        '<div class="spill">' +
+        '  <img class="ghost" alt="" draggable="false">' +
+        '  <div class="handle" data-c="nw"></div><div class="handle" data-c="ne"></div>' +
+        '  <div class="handle" data-c="sw"></div><div class="handle" data-c="se"></div>' +
+        '</div>' +
+        '<div class="ctl"><button data-act="replace" title="Replace image">Replace</button>' +
+        '  <button data-act="clear" title="Remove image">Remove</button></div>' +
+        '<input type="file" accept="' + ACCEPT.join(',') + '" hidden>';
+      this._frame = root.querySelector('.frame');
+      this._ring = root.querySelector('.ring');
+      this._img = root.querySelector('.frame img');
+      this._empty = root.querySelector('.empty');
+      this._cap = root.querySelector('.cap');
+      this._sub = root.querySelector('.sub');
+      this._spill = root.querySelector('.spill');
+      this._ghost = root.querySelector('.ghost');
+      this._err = null;
+      this._input = root.querySelector('input');
+      this._depth = 0;
+      this._gen = 0;
+      this._view = { s: 1, x: 0, y: 0 };
+      this._subFn = () => this._render();
+      // Shadow-DOM listeners live with the shadow DOM — bound once here so
+      // disconnect/reconnect (e.g. React remount) doesn't stack handlers.
+      this._empty.addEventListener('click', () => this._input.click());
+      root.addEventListener('click', (e) => {
+        const act = e.target && e.target.getAttribute && e.target.getAttribute('data-act');
+        if (act === 'replace') { this._exitReframe(true); this._input.click(); }
+        if (act === 'clear') {
+          this._exitReframe(false);
+          this._gen++;
+          this._local = null;
+          if (this.id) setSlot(this.id, null); else this._render();
+        }
+      });
+      this._input.addEventListener('change', () => {
+        const f = this._input.files && this._input.files[0];
+        if (f) this._ingest(f);
+        this._input.value = '';
+      });
+      // naturalWidth/Height aren't known until load — re-apply so the cover
+      // baseline is computed from real dimensions, not the 100%×100% fallback.
+      this._img.addEventListener('load', () => this._applyView());
+      // Gated on editable + fit=cover so share links and contain/fill slots
+      // stay static.
+      this.addEventListener('dblclick', (e) => {
+        if (!this.hasAttribute('data-editable') || !this._reframes()) return;
+        e.preventDefault();
+        if (this.hasAttribute('data-reframe')) this._exitReframe(true);
+        else this._enterReframe();
+      });
+      // Pan + resize both originate on the spill layer. A handle pointerdown
+      // drives an aspect-locked resize anchored at the opposite corner; any
+      // other pointerdown on the spill pans. Offsets are frame-% so a
+      // reframed slot survives responsive resize / PPTX export.
+      this._spill.addEventListener('pointerdown', (e) => {
+        if (e.button !== 0 || !this.hasAttribute('data-reframe')) return;
+        e.preventDefault();
+        e.stopPropagation();
+        this._spill.setPointerCapture(e.pointerId);
+        const rect = this.getBoundingClientRect();
+        const fw = rect.width || 1, fh = rect.height || 1;
+        const corner = e.target.getAttribute && e.target.getAttribute('data-c');
+        let move;
+        if (corner) {
+          // Resize about the OPPOSITE corner. Viewport-px throughout (rect
+          // fw/fh, not clientWidth) so the math survives a transform:scale()
+          // ancestor — deck_stage renders slides scaled-to-fit.
+          const iw = this._img.naturalWidth || 1, ih = this._img.naturalHeight || 1;
+          const base = Math.max(fw / iw, fh / ih);
+          const sx = corner.includes('e') ? 1 : -1;
+          const sy = corner.includes('s') ? 1 : -1;
+          const s0 = this._view.s;
+          const w0 = iw * base * s0, h0 = ih * base * s0;
+          const cx0 = (50 + this._view.x) / 100 * fw;
+          const cy0 = (50 + this._view.y) / 100 * fh;
+          const ox = cx0 - sx * w0 / 2, oy = cy0 - sy * h0 / 2;
+          const diag0 = Math.hypot(w0, h0);
+          const ux = sx * w0 / diag0, uy = sy * h0 / diag0;
+          move = (ev) => {
+            const proj = (ev.clientX - rect.left - ox) * ux +
+                         (ev.clientY - rect.top - oy) * uy;
+            const s = clampS(s0 * proj / diag0);
+            const d = diag0 * s / s0;
+            this._view.s = s;
+            this._view.x = (ox + ux * d / 2) / fw * 100 - 50;
+            this._view.y = (oy + uy * d / 2) / fh * 100 - 50;
+            this._clampView();
+            this._applyView();
+          };
+        } else {
+          this.setAttribute('data-panning', '');
+          const start = { px: e.clientX, py: e.clientY, x: this._view.x, y: this._view.y };
+          move = (ev) => {
+            this._view.x = start.x + (ev.clientX - start.px) / fw * 100;
+            this._view.y = start.y + (ev.clientY - start.py) / fh * 100;
+            this._clampView();
+            this._applyView();
+          };
+        }
+        const up = () => {
+          try { this._spill.releasePointerCapture(e.pointerId); } catch {}
+          this._spill.removeEventListener('pointermove', move);
+          this._spill.removeEventListener('pointerup', up);
+          this._spill.removeEventListener('pointercancel', up);
+          this.removeAttribute('data-panning');
+          this._dragUp = null;
+        };
+        // Stashed so _exitReframe (Escape / outside-click mid-drag) can
+        // tear the capture + listeners down synchronously.
+        this._dragUp = up;
+        this._spill.addEventListener('pointermove', move);
+        this._spill.addEventListener('pointerup', up);
+        this._spill.addEventListener('pointercancel', up);
+      });
+      // Wheel zoom stays available inside reframe mode as a trackpad nicety —
+      // zooms toward the cursor (offset' = cursor·(1-k) + offset·k).
+      this.addEventListener('wheel', (e) => {
+        if (!this.hasAttribute('data-reframe')) return;
+        e.preventDefault();
+        const r = this.getBoundingClientRect();
+        const cx = (e.clientX - r.left) / r.width * 100 - 50;
+        const cy = (e.clientY - r.top) / r.height * 100 - 50;
+        const prev = this._view.s;
+        const next = clampS(prev * Math.pow(1.0015, -e.deltaY));
+        if (next === prev) return;
+        const k = next / prev;
+        this._view.s = next;
+        this._view.x = cx * (1 - k) + this._view.x * k;
+        this._view.y = cy * (1 - k) + this._view.y * k;
+        this._clampView();
+        this._applyView();
+      }, { passive: false });
+    }
+
+    connectedCallback() {
+      // Warn once per page — an id-less slot works for the session but
+      // cannot persist, and two id-less slots would share nothing.
+      if (!this.id && !ImageSlot._warned) {
+        ImageSlot._warned = true;
+        console.warn('<image-slot> without an id will not persist its dropped image.');
+      }
+      this.addEventListener('dragenter', this);
+      this.addEventListener('dragover', this);
+      this.addEventListener('dragleave', this);
+      this.addEventListener('drop', this);
+      subs.add(this._subFn);
+      // width%/height% in _applyView encode the frame aspect at call time —
+      // a host resize (responsive grid, pane divider) would stretch the
+      // image until the next _render. Re-render on size change: _render()
+      // re-seeds _view from stored before clamp/apply, so a shrink→grow
+      // cycle round-trips instead of ratcheting x/y toward the narrower
+      // frame's clamp range.
+      this._ro = new ResizeObserver(() => this._render());
+      this._ro.observe(this);
+      load();
+      this._render();
+    }
+
+    disconnectedCallback() {
+      subs.delete(this._subFn);
+      this.removeEventListener('dragenter', this);
+      this.removeEventListener('dragover', this);
+      this.removeEventListener('dragleave', this);
+      this.removeEventListener('drop', this);
+      if (this._ro) { this._ro.disconnect(); this._ro = null; }
+      this._exitReframe(false);
+    }
+
+    _enterReframe() {
+      if (this.hasAttribute('data-reframe')) return;
+      this.setAttribute('data-reframe', '');
+      this._applyView();
+      // Close on click outside (the spill handler stopPropagation()s so
+      // in-image drags don't reach this) and on Escape. Listeners are held
+      // on the instance so _exitReframe / disconnectedCallback can detach
+      // exactly what was attached.
+      this._outside = (e) => {
+        if (e.composedPath && e.composedPath().includes(this)) return;
+        this._exitReframe(true);
+      };
+      this._esc = (e) => { if (e.key === 'Escape') this._exitReframe(true); };
+      document.addEventListener('pointerdown', this._outside, true);
+      document.addEventListener('keydown', this._esc, true);
+    }
+
+    _exitReframe(commit) {
+      if (!this.hasAttribute('data-reframe')) return;
+      if (this._dragUp) this._dragUp();
+      this.removeAttribute('data-reframe');
+      this.removeAttribute('data-panning');
+      if (this._outside) document.removeEventListener('pointerdown', this._outside, true);
+      if (this._esc) document.removeEventListener('keydown', this._esc, true);
+      this._outside = this._esc = null;
+      if (commit) this._commitView();
+    }
+
+    attributeChangedCallback() { if (this.shadowRoot) this._render(); }
+
+    // handleEvent — one listener object for all four drag events keeps the
+    // add/remove symmetric and the depth counter correct.
+    handleEvent(e) {
+      if (e.type === 'dragenter' || e.type === 'dragover') {
+        // Without preventDefault the browser never fires 'drop'.
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy';
+        if (e.type === 'dragenter') this._depth++;
+        this.setAttribute('data-over', '');
+      } else if (e.type === 'dragleave') {
+        // dragenter/leave fire for every descendant crossing — count depth
+        // so hovering the icon inside the empty state doesn't flicker.
+        if (--this._depth <= 0) { this._depth = 0; this.removeAttribute('data-over'); }
+      } else if (e.type === 'drop') {
+        e.preventDefault();
+        e.stopPropagation();
+        this._depth = 0;
+        this.removeAttribute('data-over');
+        const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+        if (f) this._ingest(f);
+      }
+    }
+
+    async _ingest(file) {
+      this._setError(null);
+      if (!file || ACCEPT.indexOf(file.type) < 0) {
+        this._setError('Drop a PNG, JPEG, WebP, or AVIF image.');
+        return;
+      }
+      // toDataUrl can take hundreds of ms on a large photo. A Clear or a
+      // newer drop during that window would be clobbered when this await
+      // resumes — bump + capture a generation so stale encodes bail.
+      const gen = ++this._gen;
+      try {
+        const w = this.clientWidth || this.offsetWidth || MAX_DIM;
+        const url = await toDataUrl(file, w);
+        if (gen !== this._gen) return;
+        // Only exit reframe once the new image is in hand — a rejected type
+        // or decode failure leaves the in-progress crop untouched.
+        this._exitReframe(false);
+        const val = { u: url, s: 1, x: 0, y: 0 };
+        setSlot(this.id || '', val);
+        // Keep a session-local copy for id-less slots so the drop still
+        // shows, even though it cannot persist.
+        if (!this.id) { this._local = val; this._render(); }
+      } catch (err) {
+        if (gen !== this._gen) return;
+        this._setError('Could not read that image.');
+        console.warn('<image-slot> ingest failed:', err);
+      }
+    }
+
+    _setError(msg) {
+      if (this._err) { this._err.remove(); this._err = null; }
+      if (!msg) return;
+      const d = document.createElement('div');
+      d.className = 'err'; d.textContent = msg;
+      this.shadowRoot.appendChild(d);
+      this._err = d;
+      setTimeout(() => { if (this._err === d) { d.remove(); this._err = null; } }, 3000);
+    }
+
+    // Reframing (pan/resize) is only meaningful for fit=cover — contain/fill
+    // keep the old object-fit path and double-click is a no-op.
+    _reframes() {
+      return this.hasAttribute('data-filled') &&
+        (this.getAttribute('fit') || 'cover') === 'cover';
+    }
+
+    // Cover-baseline geometry, shared by clamp/apply/resize. Null until the
+    // img has loaded (naturalWidth is 0 before that) or when the slot has no
+    // layout box — ResizeObserver fires with a 0×0 rect under display:none,
+    // and clamping against a degenerate 1×1 frame would silently pull the
+    // stored pan toward zero.
+    _geom() {
+      const iw = this._img.naturalWidth, ih = this._img.naturalHeight;
+      const fw = this.clientWidth, fh = this.clientHeight;
+      if (!iw || !ih || !fw || !fh) return null;
+      return { iw, ih, fw, fh, base: Math.max(fw / iw, fh / ih) };
+    }
+
+    _clampView() {
+      // Pan range on each axis is half the overflow past the frame edge.
+      const g = this._geom();
+      if (!g) return;
+      const mx = Math.max(0, (g.iw * g.base * this._view.s / g.fw - 1) * 50);
+      const my = Math.max(0, (g.ih * g.base * this._view.s / g.fh - 1) * 50);
+      this._view.x = Math.max(-mx, Math.min(mx, this._view.x));
+      this._view.y = Math.max(-my, Math.min(my, this._view.y));
+    }
+
+    _applyView() {
+      const g = this._geom();
+      const fit = this.getAttribute('fit') || 'cover';
+      if (fit !== 'cover' || !g) {
+        // Non-cover, or dimensions not known yet (before img load).
+        this._img.style.width = '100%';
+        this._img.style.height = '100%';
+        this._img.style.left = '50%';
+        this._img.style.top = '50%';
+        this._img.style.objectFit = fit;
+        this._img.style.objectPosition = this.getAttribute('position') || '50% 50%';
+        return;
+      }
+      // Cover baseline: img fills the frame on its tighter axis at s=1, so
+      // pan works immediately on the overflowing axis without zooming first.
+      // Width/height and left/top are all frame-% — depends only on the
+      // frame aspect ratio, so a responsive resize keeps the same crop. The
+      // spill layer mirrors the same box so its corners = image corners.
+      const k = g.base * this._view.s;
+      const w = (g.iw * k / g.fw * 100) + '%';
+      const h = (g.ih * k / g.fh * 100) + '%';
+      const l = (50 + this._view.x) + '%';
+      const t = (50 + this._view.y) + '%';
+      this._img.style.width = w; this._img.style.height = h;
+      this._img.style.left = l; this._img.style.top = t;
+      this._img.style.objectFit = '';
+      this._spill.style.width = w; this._spill.style.height = h;
+      this._spill.style.left = l; this._spill.style.top = t;
+    }
+
+    _commitView() {
+      const v = { s: this._view.s, x: this._view.x, y: this._view.y };
+      if (this._userUrl) v.u = this._userUrl;
+      // Framing-only (no u) persists too so an author-src slot remembers its
+      // crop; clearing the sidecar still falls through to src=.
+      if (this.id) setSlot(this.id, v);
+      else { this._local = v; }
+    }
+
+    _render() {
+      // Shape / mask. Presets use border-radius so the dashed ring can
+      // follow the rounded outline; clip-path is only applied for an
+      // explicit `mask` (the ring is hidden there since a rectangle
+      // dashed border chopped by an arbitrary polygon looks broken).
+      const mask = this.getAttribute('mask');
+      const shape = (this.getAttribute('shape') || 'rounded').toLowerCase();
+      let radius = '';
+      if (shape === 'circle') radius = '50%';
+      else if (shape === 'pill') radius = '9999px';
+      else if (shape === 'rounded') {
+        const n = parseFloat(this.getAttribute('radius'));
+        radius = (Number.isFinite(n) ? n : 12) + 'px';
+      }
+      this._frame.style.borderRadius = mask ? '' : radius;
+      this._frame.style.clipPath = mask || '';
+      this._ring.style.borderRadius = mask ? '' : radius;
+      this._ring.style.display = mask ? 'none' : '';
+
+      // Controls and reframe entry gate on this so share links stay read-only.
+      const editable = !!(window.omelette && window.omelette.writeFile);
+      this.toggleAttribute('data-editable', editable);
+      this._sub.style.display = editable ? '' : 'none';
+
+      // Content. The sidecar is also writable by the agent's write_file
+      // tool, so its value isn't guaranteed canvas-originated — only accept
+      // data:image/ URLs from it. The `src` attribute is author-controlled
+      // (Claude wrote it into the HTML) so it passes through unchanged.
+      let stored = this.id ? getSlot(this.id) : this._local;
+      if (stored && stored.u && !/^data:image\//i.test(stored.u)) stored = null;
+      const srcAttr = this.getAttribute('src') || '';
+      this._userUrl = (stored && stored.u) || null;
+      const url = this._userUrl || srcAttr;
+      // Don't clobber an in-flight reframe with a store-triggered re-render.
+      if (!this.hasAttribute('data-reframe')) {
+        this._view = {
+          s: stored && Number.isFinite(stored.s) ? clampS(stored.s) : 1,
+          x: stored && Number.isFinite(stored.x) ? stored.x : 0,
+          y: stored && Number.isFinite(stored.y) ? stored.y : 0,
+        };
+      }
+      this._cap.textContent = this.getAttribute('placeholder') || 'Drop an image';
+      // Toggle via style.display — the [hidden] attribute alone loses to
+      // the display:flex / display:block rules in the stylesheet above.
+      if (url) {
+        if (this._img.getAttribute('src') !== url) {
+          this._img.src = url;
+          this._ghost.src = url;
+        }
+        this._img.style.display = 'block';
+        this._empty.style.display = 'none';
+        this.setAttribute('data-filled', '');
+        this._clampView();
+        this._applyView();
+      } else {
+        this._img.style.display = 'none';
+        this._img.removeAttribute('src');
+        this._ghost.removeAttribute('src');
+        this._empty.style.display = 'flex';
+        this.removeAttribute('data-filled');
+      }
+    }
+  }
+
+  if (!customElements.get('image-slot')) {
+    customElements.define('image-slot', ImageSlot);
+  }
+})();
+
+</script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel">
+
+/* BEGIN USAGE */
+// tweaks-panel.jsx
+// Reusable Tweaks shell + form-control helpers.
+// Exports (to window): useTweaks, TweaksPanel, TweakSection, TweakRow, TweakSlider,
+//   TweakToggle, TweakRadio, TweakSelect, TweakText, TweakNumber, TweakColor, TweakButton.
+//
+// Owns the host protocol (listens for __activate_edit_mode / __deactivate_edit_mode,
+// posts __edit_mode_available / __edit_mode_set_keys / __edit_mode_dismissed) so
+// individual prototypes don't re-roll it. Ships a consistent set of controls so you
+// don't hand-draw <input type="range">, segmented radios, steppers, etc.
+//
+// Usage (in an HTML file that loads React + Babel):
+//
+//   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+//     "primaryColor": "#D97757",
+//     "palette": ["#D97757", "#29261b", "#f6f4ef"],
+//     "fontSize": 16,
+//     "density": "regular",
+//     "dark": false
+//   }/*EDITMODE-END*/;
+//
+//   function App() {
+//     const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+//     return (
+//       <div style={{ fontSize: t.fontSize, color: t.primaryColor }}>
+//         Hello
+//         <TweaksPanel>
+//           <TweakSection label="Typography" />
+//           <TweakSlider label="Font size" value={t.fontSize} min={10} max={32} unit="px"
+//                        onChange={(v) => setTweak('fontSize', v)} />
+//           <TweakRadio  label="Density" value={t.density}
+//                        options={['compact', 'regular', 'comfy']}
+//                        onChange={(v) => setTweak('density', v)} />
+//           <TweakSection label="Theme" />
+//           <TweakColor  label="Primary" value={t.primaryColor}
+//                        options={['#D97757', '#2A6FDB', '#1F8A5B', '#7A5AE0']}
+//                        onChange={(v) => setTweak('primaryColor', v)} />
+//           <TweakColor  label="Palette" value={t.palette}
+//                        options={[['#D97757', '#29261b', '#f6f4ef'],
+//                                  ['#475569', '#0f172a', '#f1f5f9']]}
+//                        onChange={(v) => setTweak('palette', v)} />
+//           <TweakToggle label="Dark mode" value={t.dark}
+//                        onChange={(v) => setTweak('dark', v)} />
+//         </TweaksPanel>
+//       </div>
+//     );
+//   }
+//
+// TweakRadio is the segmented control for 2–3 short options (auto-falls-back to
+// TweakSelect past ~16/~10 chars per label); reach for TweakSelect directly when
+// options are many or long. For color tweaks always curate 3-4 options rather than
+// a free picker; an option can also be a whole 2–5 color palette (the stored value
+// is the array). The Tweak* controls are a floor, not a ceiling — build custom
+// controls inside the panel if a tweak calls for UI they don't cover.
+/* END USAGE */
+// ─────────────────────────────────────────────────────────────────────────────
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    transform:scale(var(--dc-inv-zoom,1));transform-origin:bottom right;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+
+  .twk-field{appearance:none;box-sizing:border-box;width:100%;min-width:0;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;
+    overflow-wrap:anywhere}
+
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+
+  .twk-num{display:flex;align-items:center;box-sizing:border-box;min-width:0;height:26px;padding:0 0 0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
+  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;
+    user-select:none;padding-right:8px}
+  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
+    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
+    outline:none;color:inherit;-moz-appearance:textfield}
+  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{
+    -webkit-appearance:none;margin:0}
+  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
+
+  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
+    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
+  .twk-btn:hover{background:rgba(0,0,0,.88)}
+  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
+  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
+
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+
+  .twk-chips{display:flex;gap:6px}
+  .twk-chip{position:relative;appearance:none;flex:1;min-width:0;height:46px;
+    padding:0;border:0;border-radius:6px;overflow:hidden;cursor:default;
+    box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);
+    transition:transform .12s cubic-bezier(.3,.7,.4,1),box-shadow .12s}
+  .twk-chip:hover{transform:translateY(-1px);
+    box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.12)}
+  .twk-chip[data-on="1"]{box-shadow:0 0 0 1.5px rgba(0,0,0,.85),
+    0 2px 6px rgba(0,0,0,.15)}
+  .twk-chip>span{position:absolute;top:0;bottom:0;right:0;width:34%;
+    display:flex;flex-direction:column;box-shadow:-1px 0 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i{flex:1;box-shadow:0 -1px 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i:first-child{box-shadow:none}
+  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+`;
+
+// ── useTweaks ───────────────────────────────────────────────────────────────
+// Single source of truth for tweak values. setTweak persists via the host
+// (__edit_mode_set_keys → host rewrites the EDITMODE block on disk).
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  // Accepts either setTweak('key', value) or setTweak({ key: value, ... }) so a
+  // useState-style call doesn't write a "[object Object]" key into the persisted
+  // JSON block.
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
+      ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+    // Same-window signal so in-page listeners (deck-stage rail thumbnails)
+    // can react — the parent message only reaches the host, not peers.
+    window.dispatchEvent(new CustomEvent('tweakchange', { detail: edits }));
+  }, []);
+  return [values, setTweak];
+}
+
+// ── TweaksPanel ─────────────────────────────────────────────────────────────
+// Floating shell. Registers the protocol listener BEFORE announcing
+// availability — if the announce ran first, the host's activate could land
+// before our handler exists and the toolbar toggle would silently no-op.
+// The close button posts __edit_mode_dismissed so the host's toolbar toggle
+// flips off in lockstep; the host echoes __deactivate_edit_mode back which
+// is what actually hides the panel.
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', clampToViewport);
+      return () => window.removeEventListener('resize', clampToViewport);
+    }
+    const ro = new ResizeObserver(clampToViewport);
+    ro.observe(document.documentElement);
+    return () => ro.disconnect();
+  }, [open, clampToViewport]);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  };
+
+  const onDragStart = (e) => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = {
+        x: startRight - (ev.clientX - sx),
+        y: startBottom - (ev.clientY - sy),
+      };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" data-omelette-chrome=""
+           style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">
+          {children}
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ── Layout helpers ──────────────────────────────────────────────────────────
+
+function TweakSection({ label, children }) {
+  return (
+    <>
+      <div className="twk-sect">{label}</div>
+      {children}
+    </>
+  );
+}
+
+function TweakRow({ label, value, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl">
+        <span>{label}</span>
+        {value != null && <span className="twk-val">{value}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+// ── Controls ────────────────────────────────────────────────────────────────
+
+function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+  return (
+    <TweakRow label={label} value={`${value}${unit}`}>
+      <input type="range" className="twk-slider" min={min} max={max} step={step}
+             value={value} onChange={(e) => onChange(Number(e.target.value))} />
+    </TweakRow>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+              role="switch" aria-checked={!!value}
+              onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakRadio({ label, value, options, onChange }) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  // The active value is read by pointer-move handlers attached for the lifetime
+  // of a drag — ref it so a stale closure doesn't fire onChange for every move.
+  const valueRef = React.useRef(value);
+  valueRef.current = value;
+
+  // Segments wrap mid-word once per-segment width runs out. The track is
+  // ~248px (280 panel − 28 body pad − 4 seg pad), each button loses 12px
+  // to its own padding, and 11.5px system-ui averages ~6.3px/char — so 2
+  // options fit ~16 chars each, 3 fit ~10. Past that (or >3 options), fall
+  // back to a dropdown rather than wrap.
+  const labelLen = (o) => String(typeof o === 'object' ? o.label : o).length;
+  const maxLen = options.reduce((m, o) => Math.max(m, labelLen(o)), 0);
+  const fitsAsSegments = maxLen <= ({ 2: 16, 3: 10 }[options.length] ?? 0);
+  if (!fitsAsSegments) {
+    // <select> emits strings — map back to the original option value so the
+    // fallback stays type-preserving (numbers, booleans) like the segment path.
+    const resolve = (s) => {
+      const m = options.find((o) => String(typeof o === 'object' ? o.value : o) === s);
+      return m === undefined ? s : typeof m === 'object' ? m.value : m;
+    };
+    return <TweakSelect label={label} value={value} options={options}
+                        onChange={(s) => onChange(resolve(s))} />;
+  }
+  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+
+  const segAt = (clientX) => {
+    const r = trackRef.current.getBoundingClientRect();
+    const inner = r.width - 4;
+    const i = Math.floor(((clientX - r.left - 2) / inner) * n);
+    return opts[Math.max(0, Math.min(n - 1, i))].value;
+  };
+
+  const onPointerDown = (e) => {
+    setDragging(true);
+    const v0 = segAt(e.clientX);
+    if (v0 !== valueRef.current) onChange(v0);
+    const move = (ev) => {
+      if (!trackRef.current) return;
+      const v = segAt(ev.clientX);
+      if (v !== valueRef.current) onChange(v);
+    };
+    const up = () => {
+      setDragging(false);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+
+  return (
+    <TweakRow label={label}>
+      <div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown}
+           className={dragging ? 'twk-seg dragging' : 'twk-seg'}>
+        <div className="twk-seg-thumb"
+             style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+                      width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map((o) => (
+          <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>
+            {o.label}
+          </button>
+        ))}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakSelect({ label, value, options, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((o) => {
+          const v = typeof o === 'object' ? o.value : o;
+          const l = typeof o === 'object' ? o.label : o;
+          return <option key={v} value={v}>{l}</option>;
+        })}
+      </select>
+    </TweakRow>
+  );
+}
+
+function TweakText({ label, value, placeholder, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <input className="twk-field" type="text" value={value} placeholder={placeholder}
+             onChange={(e) => onChange(e.target.value)} />
+    </TweakRow>
+  );
+}
+
+function TweakNumber({ label, value, min, max, step = 1, unit = '', onChange }) {
+  const clamp = (n) => {
+    if (min != null && n < min) return min;
+    if (max != null && n > max) return max;
+    return n;
+  };
+  const startRef = React.useRef({ x: 0, val: 0 });
+  const onScrubStart = (e) => {
+    e.preventDefault();
+    startRef.current = { x: e.clientX, val: value };
+    const decimals = (String(step).split('.')[1] || '').length;
+    const move = (ev) => {
+      const dx = ev.clientX - startRef.current.x;
+      const raw = startRef.current.val + dx * step;
+      const snapped = Math.round(raw / step) * step;
+      onChange(clamp(Number(snapped.toFixed(decimals))));
+    };
+    const up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  return (
+    <div className="twk-num">
+      <span className="twk-num-lbl" onPointerDown={onScrubStart}>{label}</span>
+      <input type="number" value={value} min={min} max={max} step={step}
+             onChange={(e) => onChange(clamp(Number(e.target.value)))} />
+      {unit && <span className="twk-num-unit">{unit}</span>}
+    </div>
+  );
+}
+
+// Relative-luminance contrast pick — checkmarks drawn over a swatch need to
+// read on both #111 and #fafafa without per-option configuration. Hex input
+// only (#rgb / #rrggbb); named or rgb()/hsl() colors fall through to "light".
+function __twkIsLight(hex) {
+  const h = String(hex).replace('#', '');
+  const x = h.length === 3 ? h.replace(/./g, (c) => c + c) : h.padEnd(6, '0');
+  const n = parseInt(x.slice(0, 6), 16);
+  if (Number.isNaN(n)) return true;
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  return r * 299 + g * 587 + b * 114 > 148000;
+}
+
+const __TwkCheck = ({ light }) => (
+  <svg viewBox="0 0 14 14" aria-hidden="true">
+    <path d="M3 7.2 5.8 10 11 4.2" fill="none" strokeWidth="2.2"
+          strokeLinecap="round" strokeLinejoin="round"
+          stroke={light ? 'rgba(0,0,0,.78)' : '#fff'} />
+  </svg>
+);
+
+// TweakColor — curated color/palette picker. Each option is either a single
+// hex string or an array of 1-5 hex strings; the card adapts — a lone color
+// renders solid, a palette renders colors[0] as the hero (left ~2/3) with the
+// rest stacked in a sharp column on the right. onChange emits the
+// option in the shape it was passed (string stays string, array stays array).
+// Without options it falls back to the native color input for back-compat.
+function TweakColor({ label, value, options, onChange }) {
+  if (!options || !options.length) {
+    return (
+      <div className="twk-row twk-row-h">
+        <div className="twk-lbl"><span>{label}</span></div>
+        <input type="color" className="twk-swatch" value={value}
+               onChange={(e) => onChange(e.target.value)} />
+      </div>
+    );
+  }
+  // Native <input type=color> emits lowercase hex per the HTML spec, so
+  // compare case-insensitively. String() guards JSON.stringify(undefined),
+  // which returns the primitive undefined (no .toLowerCase).
+  const key = (o) => String(JSON.stringify(o)).toLowerCase();
+  const cur = key(value);
+  return (
+    <TweakRow label={label}>
+      <div className="twk-chips" role="radiogroup">
+        {options.map((o, i) => {
+          const colors = Array.isArray(o) ? o : [o];
+          const [hero, ...rest] = colors;
+          const sup = rest.slice(0, 4);
+          const on = key(o) === cur;
+          return (
+            <button key={i} type="button" className="twk-chip" role="radio"
+                    aria-checked={on} data-on={on ? '1' : '0'}
+                    aria-label={colors.join(', ')} title={colors.join(' · ')}
+                    style={{ background: hero }}
+                    onClick={() => onChange(o)}>
+              {sup.length > 0 && (
+                <span>
+                  {sup.map((c, j) => <i key={j} style={{ background: c }} />)}
+                </span>
+              )}
+              {on && <__TwkCheck light={__twkIsLight(hero)} />}
+            </button>
+          );
+        })}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakButton({ label, onClick, secondary = false }) {
+  return (
+    <button type="button" className={secondary ? 'twk-btn secondary' : 'twk-btn'}
+            onClick={onClick}>{label}</button>
+  );
+}
+
+Object.assign(window, {
+  useTweaks, TweaksPanel, TweakSection, TweakRow,
+  TweakSlider, TweakToggle, TweakRadio, TweakSelect,
+  TweakText, TweakNumber, TweakColor, TweakButton,
+});
+
+</script>
+<script>
+/* F-16 LAB — interactions */
+(function () {
+  // Sticky header state
+  const header = document.getElementById('siteHeader');
+  const onScroll = () => {
+    if (window.scrollY > 24) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Mobile menu
+  const burger = document.getElementById('burger');
+  if (burger) {
+    burger.addEventListener('click', () => document.body.classList.toggle('menu-open'));
+    document.querySelectorAll('.mobile-drawer a').forEach((a) =>
+      a.addEventListener('click', () => document.body.classList.remove('menu-open'))
+    );
+  }
+
+  // Animated number counters
+  const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+  function runCount(el) {
+    const target = parseInt(el.dataset.count, 10);
+    const dur = 1400;
+    const start = performance.now();
+    function frame(now) {
+      const p = Math.min((now - start) / dur, 1);
+      el.textContent = Math.round(easeOut(p) * target).toLocaleString('uk-UA');
+      if (p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  const counters = document.querySelectorAll('[data-count]');
+  if ('IntersectionObserver' in window && counters.length) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { runCount(e.target); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach((c) => io.observe(c));
+  } else {
+    counters.forEach((c) => (c.textContent = c.dataset.count));
+  }
+
+  // Staggered reveal for pain cards
+  const revealCards = document.querySelectorAll('.pain-card.reveal, .cmp-row.reveal');
+  if ('IntersectionObserver' in window && revealCards.length) {
+    const rio = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const idx = [...revealCards].indexOf(e.target);
+          e.target.style.transitionDelay = (idx % 3) * 90 + Math.floor(idx / 3) * 60 + 'ms';
+          e.target.classList.add('in-view');
+          rio.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.18 });
+    revealCards.forEach((c) => rio.observe(c));
+  } else {
+    revealCards.forEach((c) => c.classList.add('in-view'));
+  }
+
+  // Services accordion
+  const acc = document.getElementById('acc');
+  if (acc) {
+    acc.querySelectorAll('.acc-head').forEach((head) => {
+      head.addEventListener('click', () => {
+        const item = head.closest('.acc-item');
+        const isOpen = item.classList.contains('open');
+        // close others (single-open accordion)
+        acc.querySelectorAll('.acc-item.open').forEach((o) => {
+          if (o !== item) {
+            o.classList.remove('open');
+            o.querySelector('.acc-head').setAttribute('aria-expanded', 'false');
+          }
+        });
+        item.classList.toggle('open', !isOpen);
+        head.setAttribute('aria-expanded', String(!isOpen));
+      });
+    });
+  }
+
+  // Reticle follows pointer inside the viewport
+  const vp = document.getElementById('viewport');
+  const reticle = document.getElementById('vpReticle');
+  if (vp && reticle && window.matchMedia('(pointer:fine)').matches) {
+    let raf = null, tx = 50, ty = 48;
+    vp.addEventListener('mousemove', (e) => {
+      const r = vp.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width) * 100;
+      ty = ((e.clientY - r.top) / r.height) * 100;
+      if (!raf) raf = requestAnimationFrame(() => {
+        reticle.style.left = tx + '%';
+        reticle.style.top = ty + '%';
+        raf = null;
+      });
+    });
+    vp.addEventListener('mouseleave', () => {
+      reticle.style.transition = 'left .5s ease, top .5s ease';
+      reticle.style.left = '50%';
+      reticle.style.top = '48%';
+      setTimeout(() => (reticle.style.transition = ''), 520);
+    });
+    vp.addEventListener('mouseenter', () => (reticle.style.transition = 'left .12s linear, top .12s linear'));
+  }
+})();
+
+</script>
+<script type="text/babel">
+/* F-16 LAB — Tweaks island.
+   Mounts a small Tweaks panel that drives CSS variables / classes on the page. */
+const { useTweaks, TweaksPanel, TweakSection, TweakColor, TweakToggle, TweakRadio } = window;
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "#5B8DEF",
+  "scan": true,
+  "grid": true,
+  "density": "comfortable"
+}/*EDITMODE-END*/;
+
+function TweaksApp() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  React.useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty('--accent', t.accent);
+    // derive a darker press tone
+    root.style.setProperty('--accent-press', t.accent);
+    root.style.setProperty('--accent-soft', t.accent + '1f');
+
+    const scan = document.getElementById('vpScan');
+    if (scan) scan.classList.toggle('off', !t.scan);
+
+    const grid = document.querySelector('.hero-grid-bg');
+    if (grid) grid.style.opacity = t.grid ? '1' : '0';
+
+    const map = { compact: 40, comfortable: 48, spacious: 64 };
+    root.style.setProperty('--gutter', (map[t.density] || 48) + 'px');
+  }, [t]);
+
+  return (
+    <TweaksPanel>
+      <TweakSection label="Бренд" />
+      <TweakColor
+        label="Акцент"
+        value={t.accent}
+        options={["#5B8DEF", "#3F6FD6", "#5AA2C9", "#6E76E8"]}
+        onChange={(v) => setTweak('accent', v)}
+      />
+      <TweakSection label="Viewport" />
+      <TweakToggle label="Лінія сканування" value={t.scan} onChange={(v) => setTweak('scan', v)} />
+      <TweakToggle label="Технічна сітка" value={t.grid} onChange={(v) => setTweak('grid', v)} />
+      <TweakSection label="Простір" />
+      <TweakRadio
+        label="Щільність"
+        value={t.density}
+        options={["compact", "comfortable", "spacious"]}
+        onChange={(v) => setTweak('density', v)}
+      />
+    </TweaksPanel>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<TweaksApp />);
+
+</script>
+</body>
+</html>
