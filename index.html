@@ -219,7 +219,7 @@ body.menu-open .burger span::after { top: 0; transform: rotate(-45deg); }
   z-index: 55;
   background: rgba(250, 251, 253, 0.98);
   backdrop-filter: blur(20px);
-  padding: 32px var(--gutter);
+  padding: 32px 16px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -1136,7 +1136,7 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
 
 /* Mobile — 390 */
 @media (max-width: 560px) {
-  :root { --gutter: 20px; }
+  :root { --gutter: 16px; }
   body { font-size: 16px; }
   .header-inner { height: 70px; }
   .mobile-drawer { inset: 70px 0 0 0; }
