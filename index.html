@@ -486,7 +486,7 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
 /* ============================================================
    PAINS
    ============================================================ */
-.pains { padding: 110px 0 120px; background: var(--bg); position: relative; }
+.pains { padding: 56px 0; background: var(--bg); position: relative; }
 .pains-head { max-width: 720px; margin-bottom: 56px; }
 .pains-head h2 { font-size: clamp(32px, 3.2vw, 48px); margin-top: 18px; line-height: 1.06; }
 
@@ -572,9 +572,167 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
 }
 
 /* ============================================================
+   FOUNDER (засновник)
+   ============================================================ */
+.founder { background: var(--bg); padding: 56px 0; position: relative; overflow: hidden; }
+.founder::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(var(--silver-soft) 1px, transparent 1px), linear-gradient(90deg, var(--silver-soft) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(80% 70% at 16% 30%, #000, transparent 72%);
+  -webkit-mask-image: radial-gradient(80% 70% at 16% 30%, #000, transparent 72%);
+  opacity: 0.5;
+}
+.founder-in { position: relative; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 84px; align-items: center; }
+
+.founder-l { max-width: 640px; }
+.founder-l .kicker { margin-bottom: 28px; }
+.founder-quote {
+  font-family: var(--f-display); font-weight: 600;
+  font-size: clamp(30px, 3vw, 46px); line-height: 1.08; letter-spacing: -0.025em;
+  color: var(--ink); text-wrap: balance; position: relative;
+}
+.founder-quote .em { color: var(--accent); }
+.founder-mark {
+  font-family: var(--f-display); font-size: 90px; line-height: 0.7; color: var(--silver);
+  display: block; height: 38px; margin-bottom: 6px; user-select: none;
+}
+.founder-body { margin-top: 32px; display: flex; flex-direction: column; gap: 17px; }
+.founder-body p { margin: 0; color: var(--ink-soft); font-size: 17.5px; line-height: 1.62; max-width: 580px; }
+.founder-body p b { color: var(--ink); font-weight: 600; }
+
+.founder-sign { margin-top: 40px; display: flex; align-items: center; gap: 20px; }
+.founder-sign .line { width: 44px; height: 1px; background: var(--silver); flex: none; }
+.founder-sign .who .name { font-family: var(--f-display); font-weight: 600; font-size: 21px; letter-spacing: -0.01em; color: var(--ink); }
+.founder-sign .who .role { color: var(--ink-faint); font-size: 14.5px; margin-top: 4px; line-height: 1.4; max-width: 360px; }
+
+.founder-r { position: relative; }
+.founder-frame {
+  position: relative; border-radius: var(--radius); overflow: hidden;
+  aspect-ratio: 4 / 4.7; background: var(--silver-soft);
+  box-shadow: var(--shadow-lg); border: 1px solid var(--silver-soft);
+}
+.founder-frame image-slot { position: absolute; inset: 0; width: 100%; height: 100%; --is-bg: #0F1827; }
+.founder-frame .grain { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(15,24,39,0.42)); pointer-events: none; z-index: 2; }
+.founder-frame .tick { position: absolute; z-index: 3; width: 22px; height: 22px; pointer-events: none; }
+.founder-frame .tick::before, .founder-frame .tick::after { content: ""; position: absolute; background: rgba(255,255,255,0.85); }
+.founder-frame .tick::before { width: 22px; height: 1.5px; }
+.founder-frame .tick::after { width: 1.5px; height: 22px; }
+.founder-frame .tick.tl { top: 16px; left: 16px; }
+.founder-frame .tick.tr { top: 16px; right: 16px; }
+.founder-frame .tick.tr::before { right: 0; } .founder-frame .tick.tr::after { right: 0; }
+.founder-frame .tick.bl { bottom: 16px; left: 16px; }
+.founder-frame .tick.bl::before { bottom: 0; } .founder-frame .tick.bl::after { bottom: 0; }
+.founder-frame .tick.br { bottom: 16px; right: 16px; }
+.founder-frame .tick.br::before { bottom: 0; right: 0; } .founder-frame .tick.br::after { bottom: 0; right: 0; }
+.founder-frame .vp-cap {
+  position: absolute; z-index: 4; left: 0; right: 0; bottom: 0; padding: 18px 20px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  color: #fff; font-family: var(--f-mono); font-size: 11.5px; letter-spacing: 0.06em;
+}
+.founder-frame .vp-cap .dot { display: inline-flex; align-items: center; gap: 8px; }
+.founder-frame .vp-cap .dot::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #6FE3A6; box-shadow: 0 0 8px #6FE3A6; }
+.founder-cred {
+  position: absolute; z-index: 5; left: -34px; bottom: 56px;
+  background: rgba(255,255,255,0.86); backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  border: 1px solid rgba(255,255,255,0.9); border-radius: 15px; box-shadow: var(--shadow-md);
+  padding: 16px 20px; display: flex; align-items: center; gap: 16px;
+}
+.founder-cred .big { font-family: var(--f-display); font-weight: 700; font-size: 34px; letter-spacing: -0.03em; color: var(--ink); line-height: 1; }
+.founder-cred .big .u { color: var(--accent); }
+.founder-cred .lbl { font-size: 13.5px; color: var(--ink-soft); line-height: 1.35; max-width: 130px; }
+.founder-cred .sep { width: 1px; height: 38px; background: var(--silver); }
+
+@media (max-width: 1024px) {
+  .founder { padding: 44px 0; }
+  .pains { padding: 44px 0; }
+  .dark-band .services { padding-bottom: 44px; }
+  .founder-in { grid-template-columns: 1fr; gap: 56px; }
+  .founder-l { max-width: 680px; }
+  .founder-r { max-width: 540px; }
+  .founder-cred { left: 0; }
+}
+@media (max-width: 560px) {
+  .founder { padding: 32px 0; }
+  .founder-in { gap: 40px; }
+  .founder-body p { font-size: 16.5px; }
+  .founder-frame { aspect-ratio: 4 / 4.6; }
+  .founder-cred { position: static; margin-top: 18px; width: 100%; left: 0; }
+  .founder-sign { flex-wrap: wrap; gap: 14px; }
+}
+
+/* ============================================================
+   MATERIALS (bento)
+   ============================================================ */
+.materials { background: var(--bg); padding: 56px 0; position: relative; }
+.materials-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: 52px; }
+.materials-head h2 { font-size: clamp(32px, 3.2vw, 48px); line-height: 1.05; letter-spacing: -0.025em; margin-top: 18px; max-width: 640px; }
+.materials-head .tag { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.14em; color: var(--ink-faint); white-space: nowrap; }
+
+.mat-grid { display: grid; grid-template-columns: 1.32fr 1fr 1fr; grid-template-rows: repeat(2, minmax(248px, auto)); gap: 20px; }
+.mat-card {
+  position: relative; border-radius: var(--radius); overflow: hidden;
+  background: var(--bg-2); border: 1px solid var(--silver-soft);
+  box-shadow: var(--shadow-sm); isolation: isolate;
+  transition: transform 0.3s cubic-bezier(.2,.7,.2,1), box-shadow 0.3s, border-color 0.3s;
+}
+.mat-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--silver); }
+/* feature card spans both rows on the left */
+.mat-card.feature { grid-row: span 2; }
+.mat-card image-slot { position: absolute; inset: 0; width: 100%; height: 100%; --is-bg: #0F1827; z-index: 0; }
+.mat-card .veil {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(12,19,32,0.10) 0%, rgba(12,19,32,0.42) 50%, rgba(12,19,32,0.92) 100%);
+}
+.mat-card.feature .veil { background: linear-gradient(180deg, rgba(12,19,32,0.08) 0%, rgba(12,19,32,0.48) 52%, rgba(12,19,32,0.94) 100%); }
+.mat-card .body { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; padding: 24px 26px 26px; }
+.mat-card.feature .body { padding: 30px 32px 32px; }
+.mat-card .body h3 { color: #fff; font-size: 22px; letter-spacing: -0.015em; line-height: 1.12; margin: 0 0 9px; text-shadow: 0 1px 14px rgba(8,12,20,0.5); }
+.mat-card .warranty {
+  position: absolute; z-index: 3; top: 18px; left: 18px;
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.02em; color: #fff;
+  background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.28);
+  padding: 6px 12px; border-radius: 100px; backdrop-filter: blur(8px);
+}
+.mat-card .warranty svg { width: 13px; height: 13px; color: #9DBBF7; }
+.mat-card.feature .body h3 { font-size: 30px; }
+.mat-card .body p { color: rgba(238,242,249,0.92); font-size: 14.5px; line-height: 1.5; margin: 0; max-width: 360px; text-shadow: 0 1px 12px rgba(8,12,20,0.55); }
+.mat-card.feature .body p { font-size: 15.5px; max-width: 420px; }
+.mat-card .idx { position: absolute; z-index: 3; top: 18px; right: 20px; font-family: var(--f-mono); font-size: 12px; color: rgba(255,255,255,0.55); letter-spacing: 0.06em; }
+/* hairline accent that grows on hover */
+.mat-card .accent-line { position: absolute; z-index: 3; left: 26px; bottom: 0; height: 2px; width: 0; background: var(--accent); border-radius: 2px 2px 0 0; transition: width 0.4s cubic-bezier(.2,.7,.2,1); }
+.mat-card.feature .accent-line { left: 32px; }
+.mat-card:hover .accent-line { width: 48px; }
+
+/* press-ceramic card spans the two right columns on the bottom row */
+.mat-card.wide { grid-column: span 2; }
+.mat-card.wide .body p { max-width: 460px; }
+
+.materials-cta { margin-top: 46px; display: flex; align-items: center; justify-content: center; gap: 22px; flex-wrap: wrap; }
+.materials-cta .note { color: var(--ink-faint); font-size: 14.5px; }
+
+@media (max-width: 1024px) {
+  .materials { padding: 44px 0; }
+  .mat-grid { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, minmax(240px, auto)); }
+  .mat-card.feature { grid-row: span 2; }
+  .mat-card.wide { grid-column: span 2; }
+}
+@media (max-width: 560px) {
+  .materials { padding: 32px 0; }
+  .materials-head { flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 36px; }
+  .mat-grid { grid-template-columns: 1fr; grid-template-rows: none; gap: 16px; }
+  .mat-card { min-height: 300px; }
+  .mat-card.feature { grid-row: auto; }
+  .mat-card.wide { grid-column: auto; }
+  .mat-card .body h3, .mat-card.feature .body h3 { font-size: 23px; }
+}
+
+/* ============================================================
    SERVICES (accordion)
    ============================================================ */
-.services { background: transparent; color: #fff; position: relative; overflow: hidden; padding: 56px 0 112px; }
+.services { background: transparent; color: #fff; position: relative; overflow: hidden; padding: 56px 0 56px; }
 .services::before { display: none; }
 .services-head { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; margin-bottom: 48px; }
 .services-head h2 { font-size: clamp(32px, 3.2vw, 48px); color: #fff; margin-top: 18px; line-height: 1.04; letter-spacing: -0.025em; }
@@ -633,6 +791,307 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
 .services-note b { color: #C3CBDA; font-weight: 600; }
 
 /* ============================================================
+   PROCESS (як ми працюємо)
+   ============================================================ */
+.process { background: var(--bg-2); padding: 56px 0; position: relative; border-top: 1px solid var(--silver-soft); }
+.process-head { max-width: 640px; margin: 0 0 64px; }
+.process-head h2 { font-size: clamp(32px, 3.2vw, 48px); line-height: 1.06; margin-top: 18px; }
+.proc-grid { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+/* connecting route line */
+.proc-grid::before {
+  content: ""; position: absolute; left: 12.5%; right: 12.5%; top: 38px; height: 2px;
+  background: repeating-linear-gradient(90deg, var(--silver) 0 8px, transparent 8px 16px);
+  z-index: 0;
+}
+.proc-card {
+  position: relative; z-index: 1; background: var(--bg); border: 1px solid var(--silver-soft);
+  border-radius: var(--radius); padding: 28px 26px 30px; box-shadow: var(--shadow-sm);
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+.proc-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--silver); }
+.proc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+.proc-node {
+  width: 76px; height: 76px; border-radius: 20px; background: var(--bg-2);
+  border: 1px solid var(--silver-soft); display: grid; place-items: center; color: var(--accent);
+  position: relative; transition: background 0.28s ease, border-color 0.28s ease, color 0.28s ease;
+}
+.proc-card:hover .proc-node { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 12px 24px -10px rgba(91,141,239,0.8); }
+.proc-node svg { width: 30px; height: 30px; }
+/* marker dot that sits on the route line */
+.proc-card::before {
+  content: ""; position: absolute; top: 30px; left: 50%; transform: translateX(-50%);
+  width: 11px; height: 11px; border-radius: 50%; background: var(--accent);
+  border: 3px solid var(--bg-2); z-index: 2; opacity: 0;
+}
+.proc-num { font-family: var(--f-mono); font-size: 13px; color: var(--ink-faint); letter-spacing: 0.06em; }
+.proc-num b { font-family: var(--f-display); font-size: 40px; font-weight: 700; color: var(--silver); letter-spacing: -0.03em; line-height: 1; display: block; transition: color 0.28s ease; }
+.proc-card:hover .proc-num b { color: var(--accent); }
+.proc-card h3 { font-size: 18.5px; line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 9px; }
+.proc-card p { color: var(--ink-soft); font-size: 14.5px; line-height: 1.5; margin: 0; }
+
+@media (max-width: 1024px) {
+  .process { padding: 44px 0; }
+  .proc-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .proc-grid::before { display: none; }
+}
+@media (max-width: 560px) {
+  .process { padding: 32px 0; }
+  .process-head { margin-bottom: 40px; }
+  .proc-grid { grid-template-columns: 1fr; gap: 16px; }
+}
+
+/* ============================================================
+   DELIVERY & PAYMENT (доставка та оплата)
+   ============================================================ */
+.deliver { background: var(--bg); padding: 56px 0; position: relative; }
+.deliver-head { max-width: 720px; margin: 0 0 56px; }
+.deliver-head h2 { font-size: clamp(32px, 3.2vw, 48px); line-height: 1.06; margin-top: 18px; }
+.deliver-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.dp-card {
+  position: relative; overflow: hidden; background: var(--bg-2);
+  border: 1px solid var(--silver-soft); border-radius: var(--radius);
+  padding: 44px 44px 40px; box-shadow: var(--shadow-sm);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.dp-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--silver); }
+.dp-card::after {
+  content: ""; position: absolute; right: -60px; top: -60px; width: 240px; height: 240px;
+  background: radial-gradient(circle, var(--accent-soft), transparent 65%); pointer-events: none;
+}
+.dp-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 30px; position: relative; }
+.dp-ic {
+  width: 60px; height: 60px; border-radius: 16px; background: #fff; border: 1px solid var(--silver-soft);
+  display: grid; place-items: center; color: var(--accent); box-shadow: var(--shadow-sm); flex: none;
+}
+.dp-ic svg { width: 28px; height: 28px; }
+.dp-label { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); }
+.dp-card h3 { font-size: clamp(24px, 2vw, 30px); letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 26px; position: relative; }
+.dp-list { display: flex; flex-direction: column; gap: 2px; position: relative; }
+.dp-row { display: flex; align-items: center; gap: 16px; padding: 17px 0; border-top: 1px solid var(--silver-soft); }
+.dp-row:first-child { border-top: none; }
+.dp-row .ic {
+  width: 38px; height: 38px; border-radius: 11px; background: var(--accent-soft); color: var(--accent);
+  display: grid; place-items: center; flex: none;
+}
+.dp-row .ic svg { width: 19px; height: 19px; }
+.dp-row .tx { font-size: 16.5px; font-weight: 500; color: var(--ink); letter-spacing: -0.005em; }
+
+@media (max-width: 1024px) {
+  .deliver { padding: 44px 0; }
+  .deliver-grid { gap: 20px; }
+  .dp-card { padding: 36px 34px; }
+}
+@media (max-width: 560px) {
+  .deliver { padding: 32px 0; }
+  .deliver-head { margin-bottom: 40px; }
+  .deliver-grid { grid-template-columns: 1fr; gap: 16px; }
+  .dp-card { padding: 30px 26px; }
+}
+
+/* ============================================================
+   FAQ (запитання та відповіді)
+   ============================================================ */
+.faq { background: var(--bg-2); padding: 56px 0; position: relative; border-top: 1px solid var(--silver-soft); }
+.faq-in { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 72px; align-items: start; }
+.faq-head { position: sticky; top: 120px; }
+.faq-head h2 { font-size: clamp(32px, 3.2vw, 48px); line-height: 1.04; margin-top: 18px; }
+.faq-head p { color: var(--ink-soft); font-size: 16.5px; line-height: 1.55; margin: 22px 0 0; max-width: 320px; }
+.faq-head .ask { margin-top: 26px; display: inline-flex; align-items: center; gap: 9px; color: var(--accent); font-weight: 600; font-size: 15.5px; }
+.faq-head .ask svg { width: 17px; height: 17px; }
+
+.faq-list { display: flex; flex-direction: column; gap: 12px; }
+.faq-item {
+  background: var(--bg); border: 1px solid var(--silver-soft); border-radius: var(--radius);
+  box-shadow: var(--shadow-sm); overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.faq-item.open { border-color: rgba(91,141,239,0.4); box-shadow: var(--shadow-md); }
+.faq-item:hover:not(.open) { border-color: var(--silver); }
+.faq-q {
+  width: 100%; display: flex; align-items: center; gap: 20px; text-align: left;
+  padding: 24px 28px; color: var(--ink); font-family: var(--f-display);
+  font-weight: 600; font-size: clamp(17px, 1.4vw, 20px); letter-spacing: -0.01em; line-height: 1.25;
+}
+.faq-q > span:first-child { flex: 1; }
+.faq-toggle {
+  flex: none; width: 36px; height: 36px; border-radius: 10px; position: relative;
+  border: 1px solid var(--silver); background: var(--bg-2);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.faq-toggle::before, .faq-toggle::after {
+  content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  background: var(--accent); border-radius: 2px; transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.faq-toggle::before { width: 13px; height: 2px; }
+.faq-toggle::after { width: 2px; height: 13px; }
+.faq-item.open .faq-toggle { background: var(--accent); border-color: var(--accent); }
+.faq-item.open .faq-toggle::before, .faq-item.open .faq-toggle::after { background: #fff; }
+.faq-item.open .faq-toggle::after { transform: translate(-50%,-50%) rotate(90deg); opacity: 0; }
+.faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s cubic-bezier(.4,0,.2,1); }
+.faq-item.open .faq-a { grid-template-rows: 1fr; }
+.faq-a-in { overflow: hidden; }
+.faq-a p { margin: 0; padding: 0 64px 26px 28px; color: var(--ink-soft); font-size: 16px; line-height: 1.6; }
+
+@media (max-width: 1024px) {
+  .faq { padding: 44px 0; }
+  .faq-in { grid-template-columns: 1fr; gap: 40px; }
+  .faq-head { position: static; }
+  .faq-head p { max-width: none; }
+}
+@media (max-width: 560px) {
+  .faq { padding: 32px 0; }
+  .faq-q { padding: 20px 18px; gap: 14px; }
+  .faq-a p { padding: 0 24px 22px 18px; }
+}
+
+/* ============================================================
+   FINAL CTA / FORM (давайте познайомимось)
+   ============================================================ */
+.lead-cta { background: var(--bg); padding: 56px 0; position: relative; }
+.lead-shell {
+  position: relative; overflow: hidden; border-radius: 28px;
+  background: var(--graphite); color: #fff;
+  border: 1px solid rgba(255,255,255,0.08); box-shadow: var(--shadow-lg);
+  padding: 64px 64px 60px;
+}
+/* technical grid + glow, matching hero/numbers/services */
+.lead-shell::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(60% 50% at 12% 0%, rgba(91,141,239,0.16), transparent 58%),
+    radial-gradient(55% 50% at 92% 100%, rgba(91,141,239,0.12), transparent 62%),
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: auto, auto, 64px 64px, 64px 64px;
+  mask-image: radial-gradient(130% 100% at 50% 30%, #000 40%, transparent 88%);
+  -webkit-mask-image: radial-gradient(130% 100% at 50% 30%, #000 40%, transparent 88%);
+}
+.lead-shell > * { position: relative; z-index: 1; }
+.lead-top { position: relative; display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; margin-bottom: 44px; }
+.lead-top h2 { font-size: clamp(32px, 3.4vw, 52px); line-height: 1.02; letter-spacing: -0.03em; color: #fff; }
+.lead-top p { color: #AEB8C9; font-size: 18px; line-height: 1.5; margin: 18px 0 0; max-width: 520px; }
+.promo-flag {
+  flex: none; display: inline-flex; align-items: center; gap: 12px;
+  background: rgba(255,255,255,0.06); color: #fff; padding: 14px 20px; border-radius: 14px;
+  border: 1px solid rgba(91,141,239,0.45); backdrop-filter: blur(8px);
+  box-shadow: 0 14px 34px -14px rgba(91,141,239,0.6); position: relative; overflow: hidden;
+}
+.promo-flag::before { content: ""; position: absolute; inset: 0; background: radial-gradient(70% 120% at 100% 0%, rgba(91,141,239,0.34), transparent 70%); }
+.promo-flag .gift { font-size: 20px; position: relative; }
+.promo-flag .pf-tx { position: relative; line-height: 1.3; display: flex; flex-direction: column; gap: 2px; }
+.promo-flag .pf-tx .s { font-size: 13.5px; color: #AEB8C9; white-space: nowrap; }
+.promo-flag .pf-tx .b { font-family: var(--f-display); font-weight: 700; font-size: 17px; white-space: nowrap; }
+.promo-flag .pf-tx .b em { color: #9DBBF7; font-style: normal; }
+
+.lead-form { position: relative; }
+.lead-flabel { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #6E7C92; display: block; margin-bottom: 18px; }
+.svc-pick { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 40px; }
+.svc-opt {
+  position: relative; display: flex; align-items: center; gap: 12px; text-align: left;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px;
+  padding: 17px 18px; color: #E7EBF2; font-weight: 500; font-size: 15.5px; line-height: 1.25;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+.svc-opt .tick {
+  flex: none; width: 22px; height: 22px; border-radius: 7px; border: 1.5px solid rgba(255,255,255,0.28);
+  display: grid; place-items: center; transition: background 0.2s ease, border-color 0.2s ease;
+}
+.svc-opt .tick svg { width: 13px; height: 13px; color: #fff; opacity: 0; transition: opacity 0.2s ease; }
+.svc-opt:hover { border-color: rgba(91,141,239,0.6); background: rgba(255,255,255,0.07); transform: translateY(-2px); }
+.svc-opt.sel { border-color: var(--accent); background: rgba(91,141,239,0.16); color: #fff; }
+.svc-opt.sel .tick { background: var(--accent); border-color: var(--accent); }
+.svc-opt.sel .tick svg { opacity: 1; }
+
+.lead-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.field { display: flex; flex-direction: column; gap: 9px; }
+.field.full { grid-column: 1 / -1; }
+.field label { font-size: 14px; font-weight: 500; color: #AEB8C9; }
+.field input, .field textarea {
+  font-family: var(--f-body); font-size: 16px; color: #fff;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.14); border-radius: 13px;
+  padding: 16px 18px; transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; width: 100%;
+}
+.field textarea { resize: vertical; min-height: 96px; }
+.field input::placeholder, .field textarea::placeholder { color: #6E7C92; }
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--accent); background: rgba(91,141,239,0.08); box-shadow: 0 0 0 4px rgba(91,141,239,0.18); }
+.lead-submit { margin-top: 26px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+.lead-submit .btn { font-size: 17px; padding: 18px 34px; }
+.lead-submit .agree { color: #6E7C92; font-size: 13.5px; line-height: 1.5; max-width: 340px; }
+
+@media (max-width: 1024px) {
+  .lead-cta { padding: 44px 0; }
+  .lead-shell { padding: 48px 40px; }
+  .lead-top { flex-direction: column; }
+  .svc-pick { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .lead-cta { padding: 32px 0; }
+  .lead-shell { padding: 34px 22px; border-radius: 22px; }
+  .svc-pick { grid-template-columns: 1fr; }
+  .lead-fields { grid-template-columns: 1fr; }
+  .promo-flag { width: 100%; }
+}
+
+/* ============================================================
+   PORTFOLIO (портфоліо робіт)
+   ============================================================ */
+.portfolio { background: var(--bg-2); padding: 56px 0; position: relative; border-top: 1px solid var(--silver-soft); }
+.pf-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: 44px; }
+.pf-head h2 { font-size: clamp(32px, 3.2vw, 48px); line-height: 1.04; margin-top: 18px; }
+.pf-head p { color: var(--ink-soft); font-size: 16.5px; line-height: 1.55; max-width: 380px; }
+.pf-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.pf-card {
+  position: relative; aspect-ratio: 4 / 5; border-radius: var(--radius); overflow: hidden;
+  background: var(--silver-soft); box-shadow: var(--shadow-md); cursor: pointer;
+}
+.pf-card image-slot { position: absolute; inset: 0; width: 100%; height: 100%; --is-bg: #0F1827; transition: transform 0.5s cubic-bezier(.2,.7,.2,1); }
+.pf-card:hover image-slot { transform: scale(1.06); }
+.pf-card .pf-veil { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, transparent 52%, rgba(12,19,32,0.62)); opacity: 0.85; transition: opacity 0.3s ease; }
+.pf-card:hover .pf-veil { opacity: 1; }
+.pf-tag {
+  position: absolute; z-index: 2; left: 16px; bottom: 16px; right: 16px;
+  display: flex; align-items: center; gap: 8px; color: #fff;
+  font-family: var(--f-mono); font-size: 11.5px; letter-spacing: 0.04em;
+  transform: translateY(4px); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.pf-card:hover .pf-tag { transform: translateY(0); opacity: 1; }
+.pf-tag .num { color: #9DBBF7; }
+/* play button for video cards */
+.pf-card .pf-play {
+  position: absolute; z-index: 3; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 66px; height: 66px; border-radius: 50%;
+  background: rgba(255,255,255,0.16); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.5); display: grid; place-items: center;
+  transition: transform 0.3s cubic-bezier(.2,.7,.2,1), background 0.3s ease;
+}
+.pf-card .pf-play::before {
+  content: ""; position: absolute; inset: -10px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.25); opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.pf-card .pf-play svg { width: 24px; height: 24px; color: #fff; margin-left: 3px; }
+.pf-card.video:hover .pf-play { transform: translate(-50%,-50%) scale(1.12); background: var(--accent); border-color: var(--accent); }
+.pf-card.video:hover .pf-play::before { opacity: 1; transform: scale(1.08); }
+.pf-card .pf-badge {
+  position: absolute; z-index: 3; top: 14px; left: 14px;
+  font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: #fff; background: rgba(8,12,20,0.5); border: 1px solid rgba(255,255,255,0.22);
+  padding: 5px 10px; border-radius: 100px; backdrop-filter: blur(6px);
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.pf-card .pf-badge .d { width: 5px; height: 5px; border-radius: 50%; background: #6FE3A6; }
+.pf-card.video .pf-badge .d { background: var(--accent); }
+
+@media (max-width: 1024px) {
+  .portfolio { padding: 44px 0; }
+  .pf-grid { grid-template-columns: repeat(2, 1fr); }
+  .pf-head { flex-direction: column; align-items: flex-start; gap: 14px; }
+}
+@media (max-width: 560px) {
+  .portfolio { padding: 32px 0; }
+  .pf-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+}
+
+/* ============================================================
    FOOTER
    ============================================================ */
 .site-footer { background: var(--graphite); color: #C3CBDA; padding: 80px 0 36px; }
@@ -688,8 +1147,8 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
   .hero-cta-note { text-align: center; }
   .viewport { aspect-ratio: 4 / 4.2; }
   .vp-dim.d1 { left: 30%; }
-  .numbers { padding: 64px 0; }
-  .services { padding: 64px 0 72px; }
+  .numbers { padding: 48px 0 32px; }
+  .services { padding: 32px 0 32px; }
   .services-head { flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 32px; }
   .acc-head { padding: 20px 18px; gap: 14px; }
   .acc-thumb { width: 48px; height: 48px; border-radius: 10px; }
@@ -705,7 +1164,7 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
   .stat { padding: 26px 0; border-left: none; border-top: 1px solid rgba(255,255,255,0.1); }
   .stat:first-child { border-top: none; padding-top: 0; }
   .stat .label { max-width: none; }
-  .pains { padding: 72px 0 80px; }
+  .pains { padding: 32px 0; }
   .pains-grid { grid-template-columns: 1fr; }
   /* comparison → stacked cards on mobile */
   .cmp-row.head { display: none; }
@@ -792,12 +1251,12 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
         </div>
       </div>
 
-      <h1>Зуботехнічна лабораторія для <span class="em">складних робіт</span></h1>
+      <h1>Зуботехнічна лабораторія, якій довіряють <span class="em">складні випадки</span></h1>
 
-      <p class="hero-reinforcer">Надсилаєте STL або відбиток — отримуєте готову роботу. Без дзвінків з уточненнями, без зривів термінів, без правок за ваш рахунок.</p>
+      <p class="hero-reinforcer">Повний спектр зуботехнічних робіт для клінік і лікарів-ортопедів. Ви лікуєте — ми виготовляємо. Вчасно і з першого разу.</p>
 
       <div class="hero-cta-row">
-        <a href="#contacts" class="btn btn-primary btn-lg">Отримати безкоштовну консультацію</a>
+        <a href="#contacts" class="btn btn-primary btn-lg">Отримати консультацію</a>
         <span class="hero-cta-note">або напишіть одразу в <a href="#">Telegram</a> / <a href="#">Viber</a></span>
       </div>
     </div>
@@ -854,8 +1313,8 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
         <div class="label">років досвіду</div>
       </div>
       <div class="stat">
-        <div class="num"><span data-count="700">0</span><span class="suffix">+</span></div>
-        <div class="label">коронок щомісяця</div>
+        <div class="num"><span data-count="10">0</span></div>
+        <div class="label">спеціалістів в команді</div>
       </div>
       <div class="stat">
         <div class="num"><span data-count="20">0</span></div>
@@ -1087,10 +1546,405 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
   </div>
 </section>
 
+<!-- ============================ FOUNDER ============================ -->
+<section class="founder" data-screen-label="Founder">
+  <div class="container founder-in">
+    <div class="founder-l">
+      <span class="kicker">Звернення засновника</span>
+      <h2 class="founder-quote">
+        <span class="founder-mark">“</span>
+        Коли точність — <span class="em">єдиний можливий стандарт</span> роботи
+      </h2>
+      <div class="founder-body">
+        <p>Я заснував F-16 LAB, бо втомився бачити, як складні роботи передають «по колу» між лабораторіями — і ніхто не бере на себе відповідальність за результат.</p>
+        <p>Незнімне протезування на імплантах, балкові конструкції, супраструктури — це не та сфера, де можна «приблизно». Кожна робота, що виходить із лабораторії, проходить через мої руки та контроль на кожному етапі — від проєктування до фінальної перевірки посадки.</p>
+        <p><b>Я особисто відповідаю за кожну конструкцію.</b> Це і є стандарт, на якому побудована вся лабораторія.</p>
+      </div>
+      <div class="founder-sign">
+        <span class="line"></span>
+        <div class="who">
+          <div class="name">Дмитро Федотов</div>
+          <div class="role">Засновник F-16 LAB · зубний технік вищої категорії</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="founder-r">
+      <div class="founder-frame">
+        <image-slot id="founder-portrait" fit="cover" src="assets/founder.jpg"
+          placeholder="ПОРТРЕТ · Дмитро Федотов / за роботою над конструкцією"></image-slot>
+        <div class="grain"></div>
+        <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+        <div class="vp-cap">
+          <span>ЗАСНОВНИК · F-16 LAB</span>
+          <span class="dot">за роботою</span>
+        </div>
+      </div>
+      <div class="founder-cred">
+        <div><div class="big">15<span class="u">+</span></div></div>
+        <div class="sep"></div>
+        <div class="lbl">років у складному незнімному протезуванні</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ MATERIALS ============================ -->
+<section class="materials" data-screen-label="Materials">
+  <div class="container">
+    <div class="materials-head">
+      <div>
+        <span class="kicker">Каталог матеріалів</span>
+        <h2>Матеріали, з якими ми працюємо</h2>
+      </div>
+    </div>
+
+    <div class="mat-grid">
+      <article class="mat-card feature">
+        <image-slot id="mat-zr" fit="cover" src="https://images.pexels.com/photos/33748060/pexels-photo-33748060.jpeg?auto=compress&cs=tinysrgb&w=1100" placeholder="МАКРО · цирконієвий диск / фреза"></image-slot>
+        <div class="veil"></div>
+        <span class="warranty"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 4-2.8 7-7 8-4.2-1-7-4-7-8V6l7-3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>гарантія 1 рік</span>
+        <span class="idx">01</span>
+        <div class="body">
+          <h3>Цирконій</h3>
+          <p>Максимальна міцність і точність посадки для коронок, мостів і складних конструкцій на імплантах. Багатошарова естетика без металу.</p>
+        </div>
+        <span class="accent-line"></span>
+      </article>
+
+      <article class="mat-card">
+        <image-slot id="mat-pmma" fit="cover" src="https://images.pexels.com/photos/7788371/pexels-photo-7788371.jpeg?auto=compress&cs=tinysrgb&w=900" placeholder="МАКРО · PMMA / 3D-друк"></image-slot>
+        <div class="veil"></div>
+        <span class="warranty"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 4-2.8 7-7 8-4.2-1-7-4-7-8V6l7-3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>гарантія 6 місяців</span>
+        <span class="idx">02</span>
+        <div class="body">
+          <h3>PMMA</h3>
+          <p>Тимчасові та діагностичні конструкції тривалого носіння. Легкий, точний, передбачуваний у фрезеруванні.</p>
+        </div>
+        <span class="accent-line"></span>
+      </article>
+
+      <article class="mat-card">
+        <image-slot id="mat-lisi" fit="cover" src="https://images.pexels.com/photos/33748049/pexels-photo-33748049.jpeg?auto=compress&cs=tinysrgb&w=900" placeholder="МАКРО · дисилікат літію"></image-slot>
+        <div class="veil"></div>
+        <span class="warranty"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 4-2.8 7-7 8-4.2-1-7-4-7-8V6l7-3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>гарантія 1 рік</span>
+        <span class="idx">03</span>
+        <div class="body">
+          <h3>Дисилікат літію</h3>
+          <p>Природна прозорість і глибина кольору для вінірів та коронок у зоні усмішки.</p>
+        </div>
+        <span class="accent-line"></span>
+      </article>
+
+      <article class="mat-card wide">
+        <image-slot id="mat-press" fit="cover" src="https://images.pexels.com/photos/33748062/pexels-photo-33748062.jpeg?auto=compress&cs=tinysrgb&w=1100" placeholder="МАКРО · прес-кераміка"></image-slot>
+        <div class="veil"></div>
+        <span class="warranty"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 4-2.8 7-7 8-4.2-1-7-4-7-8V6l7-3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>гарантія 1 рік</span>
+        <span class="idx">04</span>
+        <div class="body">
+          <h3>Прес-кераміка</h3>
+          <p>Висока крайова точність і естетика литва під тиском для одиночних реставрацій.</p>
+        </div>
+        <span class="accent-line"></span>
+      </article>
+    </div>
+
+    <div class="materials-cta">
+      <a href="#contacts" class="btn btn-primary btn-lg">Дізнатись вартість</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PROCESS ============================ -->
+<section class="process" id="process" data-screen-label="Process">
+  <div class="container">
+    <div class="process-head">
+      <span class="kicker">Процес</span>
+      <h2>Як ми працюємо</h2>
+    </div>
+
+    <div class="proc-grid">
+      <article class="proc-card">
+        <div class="proc-top">
+          <span class="proc-node">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 7l8-4 8 4-8 4-8-4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 7v10l8 4 8-4V7M12 11v10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="proc-num"><b>01</b></span>
+        </div>
+        <h3>Прийом кейсу та моделювання</h3>
+        <p>Отримуємо STL або відбиток, перевіряємо вихідні дані й проєктуємо конструкцію в CAD.</p>
+      </article>
+
+      <article class="proc-card">
+        <div class="proc-top">
+          <span class="proc-node">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M14.5 3.5l6 6M3 21l1.2-4.2L15.3 5.7a2 2 0 012.8 0l.2.2a2 2 0 010 2.8L7.2 19.8 3 21z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="proc-num"><b>02</b></span>
+        </div>
+        <h3>Виготовлення та контроль</h3>
+        <p>Фрезерування, спікання й фінішна обробка з перевіркою посадки на кожному етапі.</p>
+      </article>
+
+      <article class="proc-card">
+        <div class="proc-top">
+          <span class="proc-node">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 1018 0 9 9 0 00-18 0z" stroke="currentColor" stroke-width="1.5"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="proc-num"><b>03</b></span>
+        </div>
+        <h3>Погодження та відправка</h3>
+        <p>Узгоджуємо результат, фіксуємо терміни й відправляємо готову роботу до клініки.</p>
+      </article>
+
+      <article class="proc-card">
+        <div class="proc-top">
+          <span class="proc-node">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 7a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 9.5h16M8 14h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+          <span class="proc-num"><b>04</b></span>
+        </div>
+        <h3>Фіксація та розрахунок</h3>
+        <p>Оплата після отримання та перевірки роботи. Прозорий розрахунок за фактом.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ DELIVERY & PAYMENT ============================ -->
+<section class="deliver" data-screen-label="Delivery">
+  <div class="container">
+    <div class="deliver-head">
+      <span class="kicker">Сервіс</span>
+      <h2>Доставка та оплата</h2>
+    </div>
+
+    <div class="deliver-grid">
+      <article class="dp-card">
+        <div class="dp-top">
+          <span class="dp-ic">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 7l9-4 9 4v10l-9 4-9-4V7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3 7l9 4 9-4M12 11v10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.5 5l9 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+          <span class="dp-label">// Logistics</span>
+        </div>
+        <h3>Доставка</h3>
+        <div class="dp-list">
+          <div class="dp-row">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M3 7.5h11v8H3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M14 10h4l3 3v2.5h-7V10z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="6.5" cy="17.5" r="1.8" stroke="currentColor" stroke-width="1.7"/><circle cx="17.5" cy="17.5" r="1.8" stroke="currentColor" stroke-width="1.7"/></svg></span>
+            <span class="tx">Відправка в день завершення</span>
+          </div>
+          <div class="dp-row">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l8 4v6c0 4.5-3.2 7-8 8-4.8-1-8-3.5-8-8V7l8-4z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="tx">Доставка нашим коштом</span>
+          </div>
+          <div class="dp-row">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8l8-4 8 4v8l-8 4-8-4V8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M4 8l8 4 8-4M12 12v8" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9.5 14.2v3.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+            <span class="tx">Фірмове жорстке пакування</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dp-card">
+        <div class="dp-top">
+          <span class="dp-ic">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 6.5a2 2 0 012-2h14a2 2 0 012 2v11a2 2 0 01-2 2H5a2 2 0 01-2-2v-11z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 14.5h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+          <span class="dp-label">// Billing</span>
+        </div>
+        <h3>Оплата</h3>
+        <div class="dp-list">
+          <div class="dp-row">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M16 9.5a3 3 0 010 5M18.5 7a6 6 0 010 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+            <span class="tx">Спецумови для постійних клієнтів</span>
+          </div>
+          <div class="dp-row">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.7"/><circle cx="16" cy="16" r="2" stroke="currentColor" stroke-width="1.7"/></svg></span>
+            <span class="tx">Знижка на перше замовлення</span>
+          </div>
+          <div class="dp-row">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5.5" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3 10h18" stroke="currentColor" stroke-width="1.7"/><path d="M6.5 14.5h3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+            <span class="tx">Безготівковий розрахунок</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PORTFOLIO ============================ -->
+<section class="portfolio" id="portfolio" data-screen-label="Portfolio">
+  <div class="container">
+    <div class="pf-head">
+      <div>
+        <span class="kicker">Портфоліо</span>
+        <h2>Портфоліо робіт</h2>
+      </div>
+      <p>Реальні роботи лабораторії — від одиночних коронок до складних конструкцій на імплантах.</p>
+    </div>
+
+    <div class="pf-grid">
+      <article class="pf-card">
+        <image-slot id="pf-1" fit="cover" src="https://images.pexels.com/photos/33748061/pexels-photo-33748061.jpeg?auto=compress&cs=tinysrgb&w=800" placeholder="Готова робота · циркон"></image-slot>
+        <div class="pf-veil"></div>
+        <span class="pf-badge"><span class="d"></span>Циркон</span>
+        <span class="pf-tag"><span class="num">01</span> Коронки на цирконієвому каркасі</span>
+      </article>
+
+      <article class="pf-card video">
+        <image-slot id="pf-2" fit="cover" src="https://images.pexels.com/photos/7788371/pexels-photo-7788371.jpeg?auto=compress&cs=tinysrgb&w=800" placeholder="Відео-кейс · процес"></image-slot>
+        <div class="pf-veil"></div>
+        <span class="pf-badge"><span class="d"></span>Відео</span>
+        <span class="pf-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5.5v13l11-6.5z"/></svg></span>
+        <span class="pf-tag"><span class="num">02</span> CAD/CAM-фрезерування</span>
+      </article>
+
+      <article class="pf-card">
+        <image-slot id="pf-3" fit="cover" src="https://images.pexels.com/photos/33748024/pexels-photo-33748024.jpeg?auto=compress&cs=tinysrgb&w=800" placeholder="Робота на імплантах"></image-slot>
+        <div class="pf-veil"></div>
+        <span class="pf-badge"><span class="d"></span>Імпланти</span>
+        <span class="pf-tag"><span class="num">03</span> Балкова конструкція на імплантах</span>
+      </article>
+
+      <article class="pf-card">
+        <image-slot id="pf-4" fit="cover" src="https://images.pexels.com/photos/33748049/pexels-photo-33748049.jpeg?auto=compress&cs=tinysrgb&w=800" placeholder="Конструкція на моделі"></image-slot>
+        <div class="pf-veil"></div>
+        <span class="pf-badge"><span class="d"></span>Модель</span>
+        <span class="pf-tag"><span class="num">04</span> Міст на робочій моделі</span>
+      </article>
+
+      <article class="pf-card">
+        <image-slot id="pf-5" fit="cover" src="https://images.pexels.com/photos/33800640/pexels-photo-33800640.jpeg?auto=compress&cs=tinysrgb&w=800" placeholder="Вініри"></image-slot>
+        <div class="pf-veil"></div>
+        <span class="pf-badge"><span class="d"></span>Естетика</span>
+        <span class="pf-tag"><span class="num">05</span> Вініри з дисилікату літію</span>
+      </article>
+
+      <article class="pf-card video">
+        <image-slot id="pf-6" fit="cover" src="https://images.pexels.com/photos/33800637/pexels-photo-33800637.jpeg?auto=compress&cs=tinysrgb&w=800" placeholder="Відео-кейс · супраструктура"></image-slot>
+        <div class="pf-veil"></div>
+        <span class="pf-badge"><span class="d"></span>Відео</span>
+        <span class="pf-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5.5v13l11-6.5z"/></svg></span>
+        <span class="pf-tag"><span class="num">06</span> Супраструктура · перевірка посадки</span>
+      </article>
+
+      <article class="pf-card">
+        <image-slot id="pf-7" fit="cover" src="https://images.pexels.com/photos/33748062/pexels-photo-33748062.jpeg?auto=compress&cs=tinysrgb&w=800" placeholder="Прес-кераміка"></image-slot>
+        <div class="pf-veil"></div>
+        <span class="pf-badge"><span class="d"></span>Кераміка</span>
+        <span class="pf-tag"><span class="num">07</span> Коронки з прес-кераміки</span>
+      </article>
+
+      <article class="pf-card">
+        <image-slot id="pf-8" fit="cover" src="https://images.pexels.com/photos/33800642/pexels-photo-33800642.jpeg?auto=compress&cs=tinysrgb&w=800" placeholder="Циркон · макро"></image-slot>
+        <div class="pf-veil"></div>
+        <span class="pf-badge"><span class="d"></span>Циркон</span>
+        <span class="pf-tag"><span class="num">08</span> Багатошарова цирконієва коронка</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FAQ ============================ -->
+<section class="faq" id="faq" data-screen-label="FAQ">
+  <div class="container faq-in">
+    <div class="faq-head">
+      <span class="kicker">Часті запитання</span>
+      <h2>Запитання та відповіді</h2>
+      <p>Зібрали те, що найчастіше запитують лікарі-ортопеди перед стартом співпраці.</p>
+      <a href="#contacts" class="ask">Не знайшли відповідь? Напишіть нам
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="faq-list" id="faqList">
+      <div class="faq-item open">
+        <button class="faq-q" aria-expanded="true"><span>Які формати ви приймаєте?</span><span class="faq-toggle"></span></button>
+        <div class="faq-a"><div class="faq-a-in"><p>STL-файл або фізичний відбиток. Якщо є сумніви щодо формату — напишіть нам, підкажемо.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Які терміни виготовлення?</span><span class="faq-toggle"></span></button>
+        <div class="faq-a"><div class="faq-a-in"><p>До 7 робочих днів від отримання файлу або відбитку. Для складних конструкцій терміни узгоджуємо індивідуально.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Хто оплачує доставку?</span><span class="faq-toggle"></span></button>
+        <div class="faq-a"><div class="faq-a-in"><p>Доставку оплачує лабораторія. Відправка в день завершення роботи.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Коли потрібно платити?</span><span class="faq-toggle"></span></button>
+        <div class="faq-a"><div class="faq-a-in"><p>Після отримання та перевірки роботи. Також можлива оплата частинами — як вам зручно. Мінімального замовлення немає.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Що якщо робота не підійшла?</span><span class="faq-toggle"></span></button>
+        <div class="faq-a"><div class="faq-a-in"><p>Аналізуємо причину разом. Корекція або повна переробка — за рахунок лабораторії.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Чи працюєте з новими клієнтами дистанційно?</span><span class="faq-toggle"></span></button>
+        <div class="faq-a"><div class="faq-a-in"><p>Так. Більшість наших клієнтів — дистанційні. Для першого знайомства — тестове замовлення зі знижкою 50% до 3 одиниць.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Як відбувається комунікація?</span><span class="faq-toggle"></span></button>
+        <div class="faq-a"><div class="faq-a-in"><p>Основний канал — Telegram і Viber. Також можна телефонувати. Працюємо щодня з 10:00 до 20:00.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FINAL CTA / FORM ============================ -->
+<section class="lead-cta" id="contacts" data-screen-label="Lead form">
+  <div class="container">
+    <div class="lead-shell">
+      <div class="lead-top">
+        <div>
+          <h2>Давайте познайомимось!</h2>
+          <p>Розкажіть, що потрібно виготовити, а ми розрахуємо вартість і терміни.</p>
+        </div>
+        <div class="promo-flag">
+          <span class="gift">🎁</span>
+          <span class="pf-tx"><span class="s">Перші 3 одиниці</span><span class="b">зі знижкою <em>−50%</em></span></span>
+        </div>
+      </div>
+
+      <form class="lead-form" onsubmit="return false">
+        <span class="lead-flabel">Що потрібно виготовити?</span>
+        <div class="svc-pick">
+          <button type="button" class="svc-opt"><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Окремі коронки та вініри</button>
+          <button type="button" class="svc-opt"><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Роботи на імплантах</button>
+          <button type="button" class="svc-opt"><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>All-on-X</button>
+          <button type="button" class="svc-opt"><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Балкові конструкції</button>
+          <button type="button" class="svc-opt"><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Супраструктури</button>
+          <button type="button" class="svc-opt"><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Тимчасові конструкції PMMA</button>
+          <button type="button" class="svc-opt"><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Потрібна консультація</button>
+        </div>
+
+        <span class="lead-flabel">Контактні дані</span>
+        <div class="lead-fields">
+          <div class="field">
+            <label for="lf-name">Ваше ім'я</label>
+            <input type="text" id="lf-name" placeholder="Як до вас звертатися" />
+          </div>
+          <div class="field">
+            <label for="lf-phone">Телефон</label>
+            <input type="tel" id="lf-phone" placeholder="+38 (0__) ___ __ __" />
+          </div>
+          <div class="field full">
+            <label for="lf-note">Коментар</label>
+            <textarea id="lf-note" placeholder="Коротко опишіть кейс: матеріал, кількість одиниць, терміни"></textarea>
+          </div>
+        </div>
+
+        <div class="lead-submit">
+          <button type="submit" class="btn btn-primary btn-lg">Отримати розрахунок</button>
+          <span class="agree">Натискаючи кнопку, ви погоджуєтесь на обробку даних. Відповідаємо протягом години в робочий час.</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <!-- ============================ FOOTER ============================ -->
-<footer class="site-footer" id="contacts">
+<footer class="site-footer" id="footer-contacts">
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
@@ -1153,8 +2007,8 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
 </footer>
 
 <nav class="switcher" aria-label="Концепти">
-  <a href="https://f-16-lab-concept-dark.vercel.app" class="active">01 · Tech</a>
-  <a href="https://f-16-lab-light-concept.vercel.app">02 · Editorial</a>
+  <a href="F-16-LAB.html" class="active">01 · Tech</a>
+  <a href="F-16-LAB-Concept-2.html">02 · Editorial</a>
 </nav>
 <style>
 .switcher{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:80;display:flex;align-items:center;gap:4px;
@@ -2442,6 +3296,30 @@ Object.assign(window, {
       });
     });
   }
+
+  // FAQ accordion (single-open)
+  const faqList = document.getElementById('faqList');
+  if (faqList) {
+    faqList.querySelectorAll('.faq-q').forEach((q) => {
+      q.addEventListener('click', () => {
+        const item = q.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        faqList.querySelectorAll('.faq-item.open').forEach((o) => {
+          if (o !== item) {
+            o.classList.remove('open');
+            o.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+          }
+        });
+        item.classList.toggle('open', !isOpen);
+        q.setAttribute('aria-expanded', String(!isOpen));
+      });
+    });
+  }
+
+  // Lead form service picker (multi-select)
+  document.querySelectorAll('.svc-opt').forEach((opt) => {
+    opt.addEventListener('click', () => opt.classList.toggle('sel'));
+  });
 
   // Reticle follows pointer inside the viewport
   const vp = document.getElementById('viewport');
