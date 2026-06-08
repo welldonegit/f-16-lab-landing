@@ -1103,6 +1103,93 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
 }
 
 /* ============================================================
+   REVIEWS (відгуки — скриншоти)
+   ============================================================ */
+.reviews { background: var(--bg); padding: 56px 0; position: relative; border-top: 1px solid var(--silver-soft); }
+.rv-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; margin-bottom: 34px; }
+.rv-head h2 { font-size: clamp(30px, 3vw, 46px); line-height: 1.06; margin-top: 18px; max-width: 760px; }
+.rv-hint {
+  flex: none; display: inline-flex; align-items: center; gap: 10px;
+  font-size: 14px; font-weight: 500; color: var(--ink-soft);
+  background: var(--bg-2); border: 1px solid var(--silver-soft);
+  padding: 10px 17px 10px 14px; border-radius: 100px; white-space: nowrap;
+}
+.rv-hint svg { width: 19px; height: 19px; color: var(--accent); animation: rvSwipe 1.8s ease-in-out infinite; }
+@keyframes rvSwipe { 0%, 100% { transform: translateX(-3px); } 50% { transform: translateX(5px); } }
+
+.rv-gallery {
+  display: flex; gap: 16px;
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 6px 0 18px;
+  margin-right: calc(-1 * var(--gutter));
+  scroll-padding-left: 0;
+  -webkit-overflow-scrolling: touch;
+}
+.rv-gallery::-webkit-scrollbar { height: 6px; }
+.rv-gallery::-webkit-scrollbar-track { background: transparent; }
+.rv-gallery::-webkit-scrollbar-thumb { background: var(--silver); border-radius: 100px; }
+.rv-gallery::after { content: ""; flex: 0 0 calc(var(--gutter) - 16px); }
+.rv-card {
+  flex: 0 0 300px; margin: 0; aspect-ratio: 620 / 1020; position: relative;
+  border-radius: var(--radius); overflow: hidden; background: #d3dde6;
+  border: 1px solid var(--silver-soft); box-shadow: var(--shadow-md);
+  cursor: zoom-in; scroll-snap-align: start;
+  transition: transform 0.28s cubic-bezier(.2,.7,.2,1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+.rv-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--silver); }
+.rv-card image-slot { position: absolute; inset: 0; width: 100%; height: 100%; --is-bg: #d3dde6; }
+.rv-card .rv-expand {
+  position: absolute; top: 12px; right: 12px; z-index: 2;
+  width: 34px; height: 34px; border-radius: 10px;
+  background: rgba(8,12,20,0.42); backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.28); display: grid; place-items: center;
+  opacity: 0; transform: translateY(-4px); transition: opacity 0.25s ease, transform 0.25s ease, background 0.25s ease;
+}
+.rv-card .rv-expand svg { width: 16px; height: 16px; color: #fff; }
+.rv-card:hover .rv-expand { opacity: 1; transform: translateY(0); }
+.rv-card .rv-expand { z-index: 4; }
+
+/* lightbox */
+.rv-lightbox {
+  position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center;
+  padding: 40px; background: rgba(8,12,20,0.82); backdrop-filter: blur(10px);
+  opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+}
+.rv-lightbox.open { opacity: 1; pointer-events: auto; }
+.rv-lightbox img { max-width: min(520px, 92vw); max-height: 88vh; width: auto; border-radius: 18px; box-shadow: 0 40px 90px -20px rgba(0,0,0,0.7); transform: scale(0.96); transition: transform 0.3s cubic-bezier(.2,.7,.2,1); }
+.rv-lightbox.open img { transform: scale(1); }
+.rv-lb-close {
+  position: absolute; top: 26px; right: 26px; width: 48px; height: 48px; border-radius: 13px;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.22); color: #fff;
+  display: grid; place-items: center; transition: background 0.2s ease;
+}
+.rv-lb-close:hover { background: rgba(255,255,255,0.2); }
+.rv-lb-close svg { width: 22px; height: 22px; }
+.rv-lb-nav {
+  position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 50%;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.22); color: #fff;
+  display: grid; place-items: center; transition: background 0.2s ease;
+}
+.rv-lb-nav:hover { background: rgba(255,255,255,0.2); }
+.rv-lb-nav svg { width: 24px; height: 24px; }
+.rv-lb-nav.prev { left: 24px; } .rv-lb-nav.next { right: 24px; }
+
+@media (max-width: 1024px) {
+  .reviews { padding: 44px 0; }
+  .rv-lb-nav { width: 44px; height: 44px; }
+  .rv-lb-nav.prev { left: 12px; } .rv-lb-nav.next { right: 12px; }
+}
+@media (max-width: 560px) {
+  .reviews { padding: 32px 0; }
+  .rv-head { flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 22px; }
+  .rv-gallery { gap: 12px; }
+  .rv-gallery::-webkit-scrollbar { display: none; }
+  .rv-card { flex: 0 0 76%; }
+  .rv-card .rv-expand { opacity: 1; transform: none; }
+  .rv-lightbox { padding: 20px; }
+}
+
+/* ============================================================
    FOOTER
    ============================================================ */
 .site-footer { background: var(--graphite); color: #C3CBDA; padding: 80px 0 36px; }
@@ -1600,7 +1687,7 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
 
     <div class="founder-r">
       <div class="founder-frame">
-        <image-slot id="founder-portrait" fit="cover" src="https://images.unsplash.com/photo-1712215544003-af10130f8eb3?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        <image-slot id="founder-portrait" fit="cover" src="assets/founder.jpg"
           placeholder="ПОРТРЕТ · Дмитро Федотов / за роботою над конструкцією"></image-slot>
         <div class="grain"></div>
         <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
@@ -1868,6 +1955,38 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
         <span class="pf-tag"><span class="num">08</span> Багатошарова цирконієва коронка</span>
       </article>
     </div>
+  </div>
+</section>
+
+<!-- ============================ REVIEWS ============================ -->
+<section class="reviews" id="reviews" data-screen-label="Reviews">
+  <div class="container">
+    <div class="rv-head">
+      <div>
+        <span class="kicker">Відгуки</span>
+        <h2>Що говорять стоматологи про співпрацю з F-16 LAB</h2>
+      </div>
+      <span class="rv-hint">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 11V5.5a1.5 1.5 0 013 0V11m0-1.5a1.5 1.5 0 013 0V12m0-1a1.5 1.5 0 013 0v4.5a5.5 5.5 0 01-5.5 5.5H11a5 5 0 01-3.5-1.5l-3-3a1.5 1.5 0 012-2.2l1.5 1.2V8a1.5 1.5 0 013 0v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Гортайте
+      </span>
+    </div>
+
+    <div class="rv-gallery" id="rvGallery">
+      <figure class="rv-card"><span class="rv-expand"><svg viewBox="0 0 24 24" fill="none"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><image-slot id="rv-1" fit="cover" src="assets/rv-1.jpg" placeholder="Скрін відгуку"></image-slot></figure>
+      <figure class="rv-card"><span class="rv-expand"><svg viewBox="0 0 24 24" fill="none"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><image-slot id="rv-2" fit="cover" src="assets/rv-2.jpg" placeholder="Скрін відгуку"></image-slot></figure>
+      <figure class="rv-card"><span class="rv-expand"><svg viewBox="0 0 24 24" fill="none"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><image-slot id="rv-3" fit="cover" src="assets/rv-3.jpg" placeholder="Скрін відгуку"></image-slot></figure>
+      <figure class="rv-card"><span class="rv-expand"><svg viewBox="0 0 24 24" fill="none"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><image-slot id="rv-4" fit="cover" src="assets/rv-4.jpg" placeholder="Скрін відгуку"></image-slot></figure>
+      <figure class="rv-card"><span class="rv-expand"><svg viewBox="0 0 24 24" fill="none"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><image-slot id="rv-5" fit="cover" src="assets/rv-5.jpg" placeholder="Скрін відгуку"></image-slot></figure>
+      <figure class="rv-card"><span class="rv-expand"><svg viewBox="0 0 24 24" fill="none"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><image-slot id="rv-6" fit="cover" src="assets/rv-6.jpg" placeholder="Скрін відгуку"></image-slot></figure>
+    </div>
+  </div>
+
+  <div class="rv-lightbox" id="rvLightbox">
+    <button class="rv-lb-close" aria-label="Закрити"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+    <button class="rv-lb-nav prev" aria-label="Попередній"><svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <img alt="Відгук — збільшено" id="rvLbImg" />
+    <button class="rv-lb-nav next" aria-label="Наступний"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   </div>
 </section>
 
@@ -3347,6 +3466,35 @@ Object.assign(window, {
   document.querySelectorAll('.svc-opt').forEach((opt) => {
     opt.addEventListener('click', () => opt.classList.toggle('sel'));
   });
+
+  // Reviews lightbox
+  const rvGallery = document.getElementById('rvGallery');
+  const rvLb = document.getElementById('rvLightbox');
+  if (rvGallery && rvLb) {
+    const cards = [...rvGallery.querySelectorAll('.rv-card')];
+    const lbImg = document.getElementById('rvLbImg');
+    let cur = 0;
+    const srcFor = (card) => {
+      const slot = card.querySelector('image-slot');
+      const shot = slot && slot.shadowRoot && slot.shadowRoot.querySelector('img');
+      if (shot && shot.getAttribute('src')) return shot.getAttribute('src');
+      return slot ? slot.getAttribute('src') : '';
+    };
+    const show = (n) => { cur = (n + cards.length) % cards.length; lbImg.setAttribute('src', srcFor(cards[cur])); };
+    const open = (n) => { show(n); rvLb.classList.add('open'); document.body.style.overflow = 'hidden'; };
+    const close = () => { rvLb.classList.remove('open'); document.body.style.overflow = ''; };
+    cards.forEach((card, i) => card.addEventListener('click', () => open(i)));
+    rvLb.querySelector('.rv-lb-close').addEventListener('click', close);
+    rvLb.querySelector('.rv-lb-nav.prev').addEventListener('click', (e) => { e.stopPropagation(); show(cur - 1); });
+    rvLb.querySelector('.rv-lb-nav.next').addEventListener('click', (e) => { e.stopPropagation(); show(cur + 1); });
+    rvLb.addEventListener('click', (e) => { if (e.target === rvLb) close(); });
+    document.addEventListener('keydown', (e) => {
+      if (!rvLb.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') show(cur - 1);
+      if (e.key === 'ArrowRight') show(cur + 1);
+    });
+  }
 
   // Reticle follows pointer inside the viewport
   const vp = document.getElementById('viewport');
