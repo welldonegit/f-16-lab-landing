@@ -784,7 +784,7 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
 .acc-rows { padding: 4px 28px 22px; }
 .price-row {
   display: grid;
-  grid-template-columns: 64px 1fr auto auto;
+  grid-template-columns: 64px 1fr auto auto auto;
   align-items: center; gap: 18px;
   padding: 15px 0;
   border-top: 1px solid rgba(255,255,255,0.07);
@@ -796,6 +796,76 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
 .price-row .term::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: rgba(139,149,168,0.6); }
 .price-row .price { font-family: var(--f-display); font-weight: 600; font-size: 19px; color: #fff; justify-self: end; white-space: nowrap; min-width: 78px; text-align: right; letter-spacing: -0.01em; }
 .price-row .price .cur { color: var(--accent); font-size: 0.72em; font-weight: 500; margin-left: 1px; }
+
+/* per-service add button */
+.svc-add {
+  justify-self: end; flex: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  height: 34px; padding: 0 13px 0 11px; border-radius: 10px;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.16);
+  color: #C3CBDA; font-family: var(--f-body); font-size: 13px; font-weight: 600; white-space: nowrap;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.12s ease;
+}
+.svc-add svg { width: 15px; height: 15px; transition: transform 0.25s ease; }
+.svc-add .ic-ok { display: none; }
+.svc-add.sel .ic-add { display: none; }
+.svc-add.sel .ic-ok { display: inline; }
+.svc-add .lbl-add { display: inline; }
+.svc-add .lbl-sel { display: none; }
+.svc-add:hover { background: rgba(91,141,239,0.14); border-color: rgba(91,141,239,0.5); color: #fff; }
+.svc-add.sel { background: var(--accent); border-color: var(--accent); color: #fff; }
+.svc-add.sel svg { transform: rotate(0); }
+.svc-add.sel .lbl-add { display: none; }
+.svc-add.sel .lbl-sel { display: inline; }
+
+/* floating selection bar */
+.svc-bar {
+  position: fixed; left: 50%; bottom: 26px; transform: translate(-50%, 130%);
+  z-index: 90; display: flex; align-items: center; gap: 18px;
+  background: rgba(12,19,32,0.86); backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255,255,255,0.14); border-radius: 16px;
+  box-shadow: 0 24px 50px -16px rgba(8,12,20,0.7); padding: 13px 14px 13px 22px;
+  transition: transform 0.4s cubic-bezier(.2,.8,.2,1), opacity 0.3s ease; opacity: 0; pointer-events: none;
+}
+.svc-bar.show { transform: translate(-50%, 0); opacity: 1; pointer-events: auto; }
+.svc-bar .cnt { color: #fff; font-size: 15px; line-height: 1.3; }
+.svc-bar .cnt b { font-family: var(--f-display); font-weight: 700; }
+.svc-bar .cnt .sub { display: block; color: #8B95A8; font-size: 12.5px; font-weight: 500; margin-top: 1px; }
+.svc-bar .bar-clear { color: #8B95A8; font-size: 13px; background: none; border: none; cursor: pointer; transition: color 0.2s ease; }
+.svc-bar .bar-clear:hover { color: #fff; }
+.svc-bar .btn { padding: 13px 22px; font-size: 15px; }
+
+/* popup form */
+.svc-modal {
+  position: fixed; inset: 0; z-index: 120; display: flex; align-items: center; justify-content: center;
+  padding: 24px; background: rgba(8,12,20,0.7); backdrop-filter: blur(8px);
+  opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+}
+.svc-modal.open { opacity: 1; pointer-events: auto; }
+.svc-dialog {
+  position: relative; width: 100%; max-width: 520px; max-height: 88vh; overflow-y: auto;
+  background: var(--graphite-2); border: 1px solid rgba(255,255,255,0.1); border-radius: 22px;
+  box-shadow: 0 40px 90px -20px rgba(0,0,0,0.7); padding: 38px 38px 34px; color: #fff;
+  transform: scale(0.96) translateY(10px); transition: transform 0.32s cubic-bezier(.2,.8,.2,1);
+}
+.svc-modal.open .svc-dialog { transform: scale(1) translateY(0); }
+.svc-dialog .m-close { position: absolute; top: 18px; right: 18px; width: 40px; height: 40px; border-radius: 11px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); color: #C3CBDA; display: grid; place-items: center; transition: background 0.2s ease; }
+.svc-dialog .m-close:hover { background: rgba(255,255,255,0.14); color: #fff; }
+.svc-dialog .m-close svg { width: 18px; height: 18px; }
+.svc-dialog h3 { font-family: var(--f-display); font-weight: 700; font-size: 27px; letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 8px; }
+.svc-dialog .m-sub { color: #8B95A8; font-size: 15px; line-height: 1.5; margin: 0 0 22px; }
+.svc-chosen { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; max-height: 168px; overflow-y: auto; }
+.svc-chip { display: inline-flex; align-items: center; gap: 8px; background: rgba(91,141,239,0.12); border: 1px solid rgba(91,141,239,0.4); color: #DCE6FA; font-size: 13px; padding: 7px 9px 7px 13px; border-radius: 100px; }
+.svc-chip .x { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(255,255,255,0.1); cursor: pointer; transition: background 0.2s ease; }
+.svc-chip .x:hover { background: var(--accent); }
+.svc-chip .x svg { width: 11px; height: 11px; color: #fff; }
+.svc-modal .field { display: flex; flex-direction: column; gap: 9px; margin-bottom: 16px; }
+.svc-modal .field label { font-size: 13.5px; font-weight: 500; color: #C3CBDA; }
+.svc-modal .field input { font-family: var(--f-body); font-size: 16px; color: #fff; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.16); border-radius: 13px; padding: 15px 17px; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.svc-modal .field input::placeholder { color: #6E7C92; }
+.svc-modal .field input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px rgba(91,141,239,0.18); }
+.svc-modal .m-submit { width: 100%; justify-content: center; margin-top: 8px; }
+.svc-modal .m-agree { color: #6E7C92; font-size: 12.5px; line-height: 1.5; margin: 14px 0 0; text-align: center; }
 
 .services-note { position: relative; margin-top: 30px; display: flex; align-items: flex-start; gap: 12px; color: #8B95A8; font-size: 13.5px; line-height: 1.55; max-width: 760px; }
 .services-note svg { flex: none; width: 16px; height: 16px; margin-top: 2px; color: var(--accent); }
@@ -1257,6 +1327,13 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
   .price-row .price { grid-column: 2; grid-row: 1 / 3; align-self: center; }
   .price-row .name { grid-column: 1; grid-row: 2; }
   .price-row .term { grid-column: 1; grid-row: 3; justify-self: start; margin-top: 4px; }
+  .svc-add { grid-column: 2; grid-row: 3; align-self: end; }
+  .svc-bar { left: 16px; right: 16px; bottom: 16px; transform: translateY(130%); padding: 12px 12px 12px 18px; gap: 12px; }
+  .svc-bar.show { transform: translateY(0); }
+  .svc-bar .cnt { font-size: 14px; flex: 1; }
+  .svc-bar .bar-clear { display: none; }
+  .svc-bar .btn { padding: 12px 18px; font-size: 14px; }
+  .svc-dialog { padding: 30px 22px 26px; }
   .numbers-head { flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 40px; }
   .numbers-grid { grid-template-columns: 1fr; gap: 0; }
   .stat { padding: 26px 0; border-left: none; border-top: 1px solid rgba(255,255,255,0.1); }
@@ -1462,11 +1539,11 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
           <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </button>
         <div class="acc-body"><div class="acc-body-in"><div class="acc-rows">
-          <div class="price-row"><span class="code">1.1</span><span class="name">Коронка / вкладка / накладка / вінір (склокераміка) + 3D фарбування</span><span class="term">7 днів</span><span class="price">80<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">1.2</span><span class="name">Коронка / вкладка / вінір (склокераміка) з нанесенням кераміки</span><span class="term">7 днів</span><span class="price">100<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">1.3</span><span class="name">Коронка цирконієва одношарова + 3D розфарбування</span><span class="term">7 днів</span><span class="price">55<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">1.4</span><span class="name">Коронка цирконієва багатошарова + 3D розфарбування</span><span class="term">7 днів</span><span class="price">65<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">1.5</span><span class="name">Коронка цирконієва з нанесенням кераміки</span><span class="term">7 днів</span><span class="price">80<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">1.1</span><span class="name">Коронка / вкладка / накладка / вінір (склокераміка) + 3D фарбування</span><span class="term">7 днів</span><span class="price">80<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Коронка / вкладка / накладка / вінір (склокераміка) + 3D фарбування"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">1.2</span><span class="name">Коронка / вкладка / вінір (склокераміка) з нанесенням кераміки</span><span class="term">7 днів</span><span class="price">100<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Коронка / вкладка / вінір (склокераміка) з нанесенням кераміки"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">1.3</span><span class="name">Коронка цирконієва одношарова + 3D розфарбування</span><span class="term">7 днів</span><span class="price">55<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Коронка цирконієва одношарова + 3D розфарбування"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">1.4</span><span class="name">Коронка цирконієва багатошарова + 3D розфарбування</span><span class="term">7 днів</span><span class="price">65<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Коронка цирконієва багатошарова + 3D розфарбування"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">1.5</span><span class="name">Коронка цирконієва з нанесенням кераміки</span><span class="term">7 днів</span><span class="price">80<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Коронка цирконієва з нанесенням кераміки"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
         </div></div></div>
       </div>
 
@@ -1479,14 +1556,14 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
           <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </button>
         <div class="acc-body"><div class="acc-body-in"><div class="acc-rows">
-          <div class="price-row"><span class="code">2.1</span><span class="name">Коронка цирконієва одношарова, гвинтова фіксація + 3D розфарбування</span><span class="term">7 днів</span><span class="price">65<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">2.2</span><span class="name">Коронка цирконієва багатошарова, гвинтова фіксація + 3D розфарбування</span><span class="term">7 днів</span><span class="price">70<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">2.3</span><span class="name">Коронка цирконієва, гвинтова фіксація з нанесенням кераміки</span><span class="term">7 днів</span><span class="price">85<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">2.4</span><span class="name">Абатмент цирконієвий індивідуальний</span><span class="term">5 днів</span><span class="price">40<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">2.5</span><span class="name">Супраструктура PMMA тривалого носіння на лего-/SLM-балці з гвинтовою фіксацією</span><span class="term">7 днів</span><span class="price">400<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">2.6</span><span class="name">Супраструктура PMMA тривалого носіння на титановій балці з гвинтовою фіксацією</span><span class="term">10 днів</span><span class="price">850<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">2.7</span><span class="name">Супраструктура цирконієва на титановій балці з гвинтовою фіксацією</span><span class="term">10 днів</span><span class="price">1700<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">2.8</span><span class="name">Супраструктура цирконієва на SLM-балці з гвинтовою фіксацією</span><span class="term">10 днів</span><span class="price">1000<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">2.1</span><span class="name">Коронка цирконієва одношарова, гвинтова фіксація + 3D розфарбування</span><span class="term">7 днів</span><span class="price">65<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Коронка цирконієва одношарова, гвинтова фіксація + 3D розфарбування"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">2.2</span><span class="name">Коронка цирконієва багатошарова, гвинтова фіксація + 3D розфарбування</span><span class="term">7 днів</span><span class="price">70<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Коронка цирконієва багатошарова, гвинтова фіксація + 3D розфарбування"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">2.3</span><span class="name">Коронка цирконієва, гвинтова фіксація з нанесенням кераміки</span><span class="term">7 днів</span><span class="price">85<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Коронка цирконієва, гвинтова фіксація з нанесенням кераміки"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">2.4</span><span class="name">Абатмент цирконієвий індивідуальний</span><span class="term">5 днів</span><span class="price">40<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Абатмент цирконієвий індивідуальний"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">2.5</span><span class="name">Супраструктура PMMA тривалого носіння на лего-/SLM-балці з гвинтовою фіксацією</span><span class="term">7 днів</span><span class="price">400<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Супраструктура PMMA тривалого носіння на лего-/SLM-балці з гвинтовою фіксацією"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">2.6</span><span class="name">Супраструктура PMMA тривалого носіння на титановій балці з гвинтовою фіксацією</span><span class="term">10 днів</span><span class="price">850<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Супраструктура PMMA тривалого носіння на титановій балці з гвинтовою фіксацією"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">2.7</span><span class="name">Супраструктура цирконієва на титановій балці з гвинтовою фіксацією</span><span class="term">10 днів</span><span class="price">1700<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Супраструктура цирконієва на титановій балці з гвинтовою фіксацією"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">2.8</span><span class="name">Супраструктура цирконієва на SLM-балці з гвинтовою фіксацією</span><span class="term">10 днів</span><span class="price">1000<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Супраструктура цирконієва на SLM-балці з гвинтовою фіксацією"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
         </div></div></div>
       </div>
 
@@ -1499,10 +1576,10 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
           <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </button>
         <div class="acc-body"><div class="acc-body-in"><div class="acc-rows">
-          <div class="price-row"><span class="code">3.1</span><span class="name">Коронка тимчасового призначення (друкована)</span><span class="term">5 днів</span><span class="price">10<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">3.2</span><span class="name">Коронка PMMA тривалого призначення</span><span class="term">5 днів</span><span class="price">15<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">3.3</span><span class="name">Коронка тимчасового призначення з гвинтовою фіксацією</span><span class="term">5 днів</span><span class="price">16<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">3.4</span><span class="name">Коронка PMMA тривалого призначення з гвинтовою фіксацією</span><span class="term">5 днів</span><span class="price">20<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">3.1</span><span class="name">Коронка тимчасового призначення (друкована)</span><span class="term">5 днів</span><span class="price">10<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Коронка тимчасового призначення (друкована)"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">3.2</span><span class="name">Коронка PMMA тривалого призначення</span><span class="term">5 днів</span><span class="price">15<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Коронка PMMA тривалого призначення"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">3.3</span><span class="name">Коронка тимчасового призначення з гвинтовою фіксацією</span><span class="term">5 днів</span><span class="price">16<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Коронка тимчасового призначення з гвинтовою фіксацією"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">3.4</span><span class="name">Коронка PMMA тривалого призначення з гвинтовою фіксацією</span><span class="term">5 днів</span><span class="price">20<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Коронка PMMA тривалого призначення з гвинтовою фіксацією"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
         </div></div></div>
       </div>
 
@@ -1515,10 +1592,10 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
           <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </button>
         <div class="acc-body"><div class="acc-body-in"><div class="acc-rows">
-          <div class="price-row"><span class="code">4.1</span><span class="name">Капа ретенційна</span><span class="term">2 дні</span><span class="price">20<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">4.2</span><span class="name">Капа міорелаксуюча</span><span class="term">2 дні</span><span class="price">50<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">4.3</span><span class="name">Депрограматор Койса</span><span class="term">2 дні</span><span class="price">45<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">4.4</span><span class="name">Індивідуальний гнатометр</span><span class="term">5 днів</span><span class="price">50<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">4.1</span><span class="name">Капа ретенційна</span><span class="term">2 дні</span><span class="price">20<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Капа ретенційна"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">4.2</span><span class="name">Капа міорелаксуюча</span><span class="term">2 дні</span><span class="price">50<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Капа міорелаксуюча"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">4.3</span><span class="name">Депрограматор Койса</span><span class="term">2 дні</span><span class="price">45<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Депрограматор Койса"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">4.4</span><span class="name">Індивідуальний гнатометр</span><span class="term">5 днів</span><span class="price">50<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Індивідуальний гнатометр"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
         </div></div></div>
       </div>
 
@@ -1531,16 +1608,16 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
           <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </button>
         <div class="acc-body"><div class="acc-body-in"><div class="acc-rows">
-          <div class="price-row"><span class="code">5.1</span><span class="name">Цифровий Wax-up (1 од.)</span><span class="term">7 днів</span><span class="price">12<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">5.2</span><span class="name">Фрезерований Mock-up PMMA (ортотік) (1 од.)</span><span class="term">7 днів</span><span class="price">15<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">5.3</span><span class="name">Друк моделі (одна щелепа)</span><span class="term">2 дні</span><span class="price">15<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">5.4</span><span class="name">Силіконовий ключ (для перенесення Mock-up)</span><span class="term">1 день</span><span class="price">8<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">5.5</span><span class="name">Ключ для контролю препарування (одна щелепа)</span><span class="term">2 дні</span><span class="price">15<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">5.6</span><span class="name">Діагностичні моделі (друковані)</span><span class="term">1 день</span><span class="price">12<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">5.7</span><span class="name">Діагностичні моделі (гіпсові)</span><span class="term">1 день</span><span class="price">6<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">5.8</span><span class="name">Трансфер-чек</span><span class="term">2 дні</span><span class="price">5<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">5.9</span><span class="name">Ковпачок для препарування</span><span class="term">1 день</span><span class="price">5<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">5.10</span><span class="name">Прототип конструкції постійної роботи</span><span class="term">2 дні</span><span class="price">12<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">5.1</span><span class="name">Цифровий Wax-up (1 од.)</span><span class="term">7 днів</span><span class="price">12<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Цифровий Wax-up (1 од.)"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">5.2</span><span class="name">Фрезерований Mock-up PMMA (ортотік) (1 од.)</span><span class="term">7 днів</span><span class="price">15<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Фрезерований Mock-up PMMA (ортотік) (1 од.)"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">5.3</span><span class="name">Друк моделі (одна щелепа)</span><span class="term">2 дні</span><span class="price">15<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Друк моделі (одна щелепа)"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">5.4</span><span class="name">Силіконовий ключ (для перенесення Mock-up)</span><span class="term">1 день</span><span class="price">8<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Силіконовий ключ (для перенесення Mock-up)"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">5.5</span><span class="name">Ключ для контролю препарування (одна щелепа)</span><span class="term">2 дні</span><span class="price">15<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Ключ для контролю препарування (одна щелепа)"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">5.6</span><span class="name">Діагностичні моделі (друковані)</span><span class="term">1 день</span><span class="price">12<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Діагностичні моделі (друковані)"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">5.7</span><span class="name">Діагностичні моделі (гіпсові)</span><span class="term">1 день</span><span class="price">6<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Діагностичні моделі (гіпсові)"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">5.8</span><span class="name">Трансфер-чек</span><span class="term">2 дні</span><span class="price">5<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Трансфер-чек"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">5.9</span><span class="name">Ковпачок для препарування</span><span class="term">1 день</span><span class="price">5<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Ковпачок для препарування"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">5.10</span><span class="name">Прототип конструкції постійної роботи</span><span class="term">2 дні</span><span class="price">12<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Прототип конструкції постійної роботи"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
         </div></div></div>
       </div>
 
@@ -1553,14 +1630,14 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
           <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </button>
         <div class="acc-body"><div class="acc-body-in"><div class="acc-rows">
-          <div class="price-row"><span class="code">6.1</span><span class="name">Внутрішньо-культева вкладка</span><span class="term">1 день</span><span class="price">20<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">6.2</span><span class="name">Композитна ясна (1 од.)</span><span class="term">7 днів</span><span class="price">10<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">6.3</span><span class="name">Керамічна ясна (1 од.)</span><span class="term">7 днів</span><span class="price">15<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">6.4</span><span class="name">Індивідуальна ложка</span><span class="term">2 дні</span><span class="price">12<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">6.5</span><span class="name">Прикусний восковий валик на жорсткому базисі</span><span class="term">2 дні</span><span class="price">12<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">6.6</span><span class="name">Шаблон для корекції десни</span><span class="term">1 день</span><span class="price">25<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">6.7</span><span class="name">Рефрактор</span><span class="term">7–10 днів</span><span class="price">150<span class="cur">&nbsp;€</span></span></div>
-          <div class="price-row"><span class="code">6.8</span><span class="name">Приміл</span><span class="term">7–10 днів</span><span class="price">40<span class="cur">&nbsp;€</span></span></div>
+          <div class="price-row"><span class="code">6.1</span><span class="name">Внутрішньо-культева вкладка</span><span class="term">1 день</span><span class="price">20<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Внутрішньо-культева вкладка"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">6.2</span><span class="name">Композитна ясна (1 од.)</span><span class="term">7 днів</span><span class="price">10<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Композитна ясна (1 од.)"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">6.3</span><span class="name">Керамічна ясна (1 од.)</span><span class="term">7 днів</span><span class="price">15<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Керамічна ясна (1 од.)"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">6.4</span><span class="name">Індивідуальна ложка</span><span class="term">2 дні</span><span class="price">12<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Індивідуальна ложка"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">6.5</span><span class="name">Прикусний восковий валик на жорсткому базисі</span><span class="term">2 дні</span><span class="price">12<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Прикусний восковий валик на жорсткому базисі"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">6.6</span><span class="name">Шаблон для корекції десни</span><span class="term">1 день</span><span class="price">25<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Шаблон для корекції десни"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">6.7</span><span class="name">Рефрактор</span><span class="term">7–10 днів</span><span class="price">150<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Рефрактор"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
+          <div class="price-row"><span class="code">6.8</span><span class="name">Приміл</span><span class="term">7–10 днів</span><span class="price">40<span class="cur">&nbsp;€</span></span><button class="svc-add" type="button" data-name="Приміл"><svg class="ic-add" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ic-ok" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl-add">Обрати</span><span class="lbl-sel">Обрано</span></button></div>
         </div></div></div>
       </div>
 
@@ -1827,64 +1904,6 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
   </div>
 </section>
 
-<!-- ============================ DELIVERY & PAYMENT ============================ -->
-<section class="deliver" data-screen-label="Delivery">
-  <div class="container">
-    <div class="deliver-head">
-      <span class="kicker">Сервіс</span>
-      <h2>Доставка та оплата</h2>
-    </div>
-
-    <div class="deliver-grid">
-      <article class="dp-card">
-        <div class="dp-top">
-          <span class="dp-ic">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M3 7l9-4 9 4v10l-9 4-9-4V7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3 7l9 4 9-4M12 11v10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.5 5l9 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          </span>
-        </div>
-        <h3>Доставка</h3>
-        <div class="dp-list">
-          <div class="dp-row">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M3 7.5h11v8H3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M14 10h4l3 3v2.5h-7V10z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="6.5" cy="17.5" r="1.8" stroke="currentColor" stroke-width="1.7"/><circle cx="17.5" cy="17.5" r="1.8" stroke="currentColor" stroke-width="1.7"/></svg></span>
-            <span class="tx">Відправка в день завершення</span>
-          </div>
-          <div class="dp-row">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l8 4v6c0 4.5-3.2 7-8 8-4.8-1-8-3.5-8-8V7l8-4z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <span class="tx">Доставка нашим коштом</span>
-          </div>
-          <div class="dp-row">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8l8-4 8 4v8l-8 4-8-4V8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M4 8l8 4 8-4M12 12v8" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9.5 14.2v3.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
-            <span class="tx">Фірмове жорстке пакування</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="dp-card">
-        <div class="dp-top">
-          <span class="dp-ic">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M3 6.5a2 2 0 012-2h14a2 2 0 012 2v11a2 2 0 01-2 2H5a2 2 0 01-2-2v-11z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 14.5h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          </span>
-        </div>
-        <h3>Оплата</h3>
-        <div class="dp-list">
-          <div class="dp-row">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M16 9.5a3 3 0 010 5M18.5 7a6 6 0 010 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
-            <span class="tx">Спецумови для постійних клієнтів</span>
-          </div>
-          <div class="dp-row">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.7"/><circle cx="16" cy="16" r="2" stroke="currentColor" stroke-width="1.7"/></svg></span>
-            <span class="tx">Знижка на перше замовлення</span>
-          </div>
-          <div class="dp-row">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5.5" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3 10h18" stroke="currentColor" stroke-width="1.7"/><path d="M6.5 14.5h3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
-            <span class="tx">Безготівковий розрахунок</span>
-          </div>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
 <!-- ============================ PORTFOLIO ============================ -->
 <section class="portfolio" id="portfolio" data-screen-label="Portfolio">
   <div class="container">
@@ -1990,6 +2009,64 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
   </div>
 </section>
 
+<!-- ============================ DELIVERY & PAYMENT ============================ -->
+<section class="deliver" data-screen-label="Delivery">
+  <div class="container">
+    <div class="deliver-head">
+      <span class="kicker">Сервіс</span>
+      <h2>Доставка та оплата</h2>
+    </div>
+
+    <div class="deliver-grid">
+      <article class="dp-card">
+        <div class="dp-top">
+          <span class="dp-ic">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 7l9-4 9 4v10l-9 4-9-4V7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3 7l9 4 9-4M12 11v10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.5 5l9 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+        </div>
+        <h3>Доставка</h3>
+        <div class="dp-list">
+          <div class="dp-row">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M3 7.5h11v8H3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M14 10h4l3 3v2.5h-7V10z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="6.5" cy="17.5" r="1.8" stroke="currentColor" stroke-width="1.7"/><circle cx="17.5" cy="17.5" r="1.8" stroke="currentColor" stroke-width="1.7"/></svg></span>
+            <span class="tx">Відправка в день завершення</span>
+          </div>
+          <div class="dp-row">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l8 4v6c0 4.5-3.2 7-8 8-4.8-1-8-3.5-8-8V7l8-4z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="tx">Доставка нашим коштом</span>
+          </div>
+          <div class="dp-row">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8l8-4 8 4v8l-8 4-8-4V8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M4 8l8 4 8-4M12 12v8" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9.5 14.2v3.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+            <span class="tx">Фірмове жорстке пакування</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dp-card">
+        <div class="dp-top">
+          <span class="dp-ic">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 6.5a2 2 0 012-2h14a2 2 0 012 2v11a2 2 0 01-2 2H5a2 2 0 01-2-2v-11z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 14.5h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+        </div>
+        <h3>Оплата</h3>
+        <div class="dp-list">
+          <div class="dp-row">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M16 9.5a3 3 0 010 5M18.5 7a6 6 0 010 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+            <span class="tx">Спецумови для постійних клієнтів</span>
+          </div>
+          <div class="dp-row">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.7"/><circle cx="16" cy="16" r="2" stroke="currentColor" stroke-width="1.7"/></svg></span>
+            <span class="tx">Знижка на перше замовлення</span>
+          </div>
+          <div class="dp-row">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5.5" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3 10h18" stroke="currentColor" stroke-width="1.7"/><path d="M6.5 14.5h3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+            <span class="tx">Безготівковий розрахунок</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- ============================ FAQ ============================ -->
 <section class="faq" id="faq" data-screen-label="FAQ">
   <div class="container faq-in">
@@ -2088,6 +2165,36 @@ body.menu-open .mobile-drawer { opacity: 1; transform: translateY(0); pointer-ev
 </section>
 
 </main>
+
+<!-- floating selection bar -->
+<div class="svc-bar" id="svcBar" aria-live="polite">
+  <span class="cnt"><b id="svcBarCount">0</b> послуг обрано<span class="sub">Залиште заявку одразу на всі</span></span>
+  <button class="bar-clear" id="svcBarClear" type="button">Очистити</button>
+  <button class="btn btn-primary" id="svcBarCta" type="button">Отримати розрахунок</button>
+</div>
+
+<!-- popup form -->
+<div class="svc-modal" id="svcModal" role="dialog" aria-modal="true" aria-label="Отримати розрахунок">
+  <div class="svc-dialog">
+    <button class="m-close" id="svcModalClose" type="button" aria-label="Закрити"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+    <h3>Отримати розрахунок</h3>
+    <p class="m-sub">Розрахуємо вартість і терміни за обраними послугами та звʼяжемося протягом години.</p>
+    <div class="svc-chosen" id="svcChosen"></div>
+    <form id="svcForm" onsubmit="return false">
+      <div class="field">
+        <label for="svc-name">Ваше імʼя</label>
+        <input type="text" id="svc-name" placeholder="Як до вас звертатися" />
+      </div>
+      <div class="field">
+        <label for="svc-phone">Телефон</label>
+        <input type="tel" id="svc-phone" placeholder="+38 (0__) ___ __ __" />
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg m-submit">Отримати розрахунок</button>
+      <p class="m-agree">Натискаючи кнопку, ви погоджуєтесь на обробку даних.</p>
+    </form>
+  </div>
+</div>
+
 
 <!-- ============================ FOOTER ============================ -->
 <footer class="site-footer" id="footer-contacts">
@@ -3440,6 +3547,59 @@ Object.assign(window, {
         item.classList.toggle('open', !isOpen);
         head.setAttribute('aria-expanded', String(!isOpen));
       });
+    });
+  }
+
+  // Services multi-select → floating bar → popup form
+  const svcBar = document.getElementById('svcBar');
+  const svcModal = document.getElementById('svcModal');
+  if (acc && svcBar && svcModal) {
+    const selected = new Set();
+    const barCount = document.getElementById('svcBarCount');
+    const chosenWrap = document.getElementById('svcChosen');
+    const addBtns = [...acc.querySelectorAll('.svc-add')];
+
+    const syncBtns = () => {
+      addBtns.forEach((b) => b.classList.toggle('sel', selected.has(b.dataset.name)));
+    };
+    const renderBar = () => {
+      const n = selected.size;
+      barCount.textContent = n;
+      svcBar.classList.toggle('show', n > 0);
+    };
+    const toggle = (name) => {
+      if (selected.has(name)) selected.delete(name); else selected.add(name);
+      syncBtns(); renderBar();
+    };
+    addBtns.forEach((b) => b.addEventListener('click', (e) => { e.stopPropagation(); toggle(b.dataset.name); }));
+
+    document.getElementById('svcBarClear').addEventListener('click', () => {
+      selected.clear(); syncBtns(); renderBar();
+    });
+
+    const renderChips = () => {
+      chosenWrap.innerHTML = '';
+      [...selected].forEach((name) => {
+        const chip = document.createElement('span');
+        chip.className = 'svc-chip';
+        chip.innerHTML = '<span class="t"></span><span class="x" role="button" aria-label="Прибрати"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>';
+        chip.querySelector('.t').textContent = name;
+        chip.querySelector('.x').addEventListener('click', () => {
+          selected.delete(name); syncBtns(); renderBar(); renderChips();
+          if (selected.size === 0) closeModal();
+        });
+        chosenWrap.appendChild(chip);
+      });
+    };
+    const openModal = () => { renderChips(); svcModal.classList.add('open'); document.body.style.overflow = 'hidden'; };
+    const closeModal = () => { svcModal.classList.remove('open'); document.body.style.overflow = ''; };
+    document.getElementById('svcBarCta').addEventListener('click', openModal);
+    document.getElementById('svcModalClose').addEventListener('click', closeModal);
+    svcModal.addEventListener('click', (e) => { if (e.target === svcModal) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && svcModal.classList.contains('open')) closeModal(); });
+    document.getElementById('svcForm').addEventListener('submit', () => {
+      closeModal();
+      selected.clear(); syncBtns(); renderBar();
     });
   }
 
